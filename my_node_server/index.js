@@ -3,7 +3,7 @@ const express = require('express');
 // Expressアプリケーションのインスタンスを作成
 const app = express();
 // サーバーが待ち受けるポート番号
-const port = 3000;
+const port = 8000;
 
 // 【追加】'public' ディレクトリ内のファイルを静的ファイルとして公開する
 // これにより、 http://localhost:3000/index.html でファイルにアクセス可能になる
