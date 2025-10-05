@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>研究テーマへのリンク</title>
+        <style>
+            /* ボタンのように見せるためのCSS */
+            .button-link {
+                display: inline-block; /* インライン要素をブロック要素のように扱い、サイズ指定を可能にする */
+                padding: 10px 20px; /* 内側の余白 */
+                background-color: black; /* 背景色（緑） */
+                color: white; /* 文字色 */
+                text-align: center; /* 文字を中央揃え */
+                text-decoration: none; /* リンクの下線を消す */
+                border-radius: 5px; /* 角を丸くする */
+                cursor: pointer; /* マウスカーソルをポインターにする */
+                font-size: 16px; /* フォントサイズ */
+                border: none; /* 枠線をなくす */
+                transition: background-color 0.3s; /* ホバー時のアニメーション */
+            }
+
+            .button-link:hover {
+                background-color: purple; /* ホバー時の背景色 */
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>ようこそ川野邊ゼミへ</h1>
+        <h2>以下のテーマから気になるテーマを選んでください</h2>
+        
+        <a href="index.html" class="button-link">時間経過と感情の関係</a>
+
+    </body>
+</html>
