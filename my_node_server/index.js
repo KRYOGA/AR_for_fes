@@ -14,7 +14,7 @@ app.use(express.static('public'));
 app.get('/', (req, res) => {
   
   // サーバーの実行ファイルからの相対パスで view.html を送信
-  res.sendFile(__dirname + '/public/view.html');
+  res.sendFile(__dirname + '/public/index.html');
   
 });
 
