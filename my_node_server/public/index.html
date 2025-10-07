@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>ACCESS PROTOCOL</title>
+        <style>
+            /* イントロ画面用CSS: 中央に配置し、コンソールフォントを使用 */
+            body {
+                background-color: #000000;
+                color: #00FF41; /* コンソール画面風のネオングリーン */
+                font-family: 'Consolas', 'Courier New', monospace;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                margin: 0;
+            }
+            #typing-text {
+                font-size: 2.5em;
+                white-space: pre; /* タイピングアニメーション中の改行やスペースを維持 */
+                padding-bottom: 5px;
+            }
+            .ityped-cursor {
+                opacity: 1;
+                -webkit-animation: blink 0.7s infinite;
+                animation: blink 0.7s infinite;
+                color: #00FF41;
+            }
+            @keyframes blink {
+                0% { opacity: 1; }
+                50% { opacity: 0; }
+                100% { opacity: 1; }
+            }
+        </style>
+    </head>
+    <body>
+        <div id="typing-text"></div>
+
+        <script src="https://unpkg.com/ityped@1.0.0/dist/index.js"></script>
+        
+        <script>
+            window.onload = function() {
+                // 1. タイピングする文字列の定義
+                const strings = [
+                    "Hello world!",
+                    "KAWANOBElab...",
+                ];
+
+                // 2. iTypedの初期化と完了後の処理
+                ityped.init(document.querySelector("#typing-text"), {
+                    strings: strings,
+                    loop: false,          // ループはしない
+                    typeSpeed: 70,        // タイピング速度
+                    backSpeed: 30,        // 消去速度
+                    backDelay: 1000,      // 消去までの待機時間
+                    startDelay: 500,      // 開始までの待機時間
+                    showCursor: true,     // カーソル表示
+                    onFinished: function() {
+                        // 3. タイピングアニメーション完了後の処理
+                        // 3秒後に main.html へ自動遷移
+                        setTimeout(() => {
+                            window.location.href = "main.html"; // 遷移先のファイル名を指定
+                        }, 3000); 
+                    }
+                });
+            }
+        </script>
+    </body>
+</html>
