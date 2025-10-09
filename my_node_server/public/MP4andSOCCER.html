@@ -43,10 +43,6 @@
             gesture-detector
         >
             <a-assets>
-                <a-asset-item
-                    id="animated-asset"
-                    src="assets/soccerball.gltf"
-                ></a-asset-item>
 
                 <video
                     id="vid"
@@ -63,26 +59,7 @@
             </a-assets>
 
             <a-marker
-                id="markerA"
-                type="pattern"
-                preset="custom"
-                url="assets/marker.patt"
-                raycaster="objects: .clickable"
-                emitevents="true"
-                cursor="fuse: false; rayOrigin: mouse;"
-            >
-                <a-entity
-                    id="bowser-model"
-                    scale="0.145 0.145 0.145"
-                    animation-mixer="loop: repeat"
-                    gltf-model="#animated-asset"
-                    class="clickable"
-                    gesture-handler
-                ></a-entity>
-            </a-marker>
-
-            <a-marker
-                id="markerB"
+                id="vid_marker"
                 type="pattern"
                 preset="custom"
                 url="assets/marker_video.patt"
