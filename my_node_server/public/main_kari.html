@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>川野邊研究室 // 研究テーマ発表会</title>
+
+    <!-- 外部ライブラリ -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- 外部CSS -->
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+
+  <body>
+    <div class="content-wrapper">
+      <h1>川野邊研究室 // 研究テーマ発表会</h1>
+
+      <div id="main-typing-container">
+        <h2 id="main-typing"></h2>
+      </div>
+
+      <div class="theme-section">
+        <div class="theme-links">
+          <a href="soccer.html" class="button-link" data-aos="fade-up" data-aos-delay="0">テーマ01：AIによるデータ分析プロトコル</a>
+          <a href="Axe.html" class="button-link" data-aos="fade-up" data-aos-delay="100">テーマ02：データ統合と可視化技術</a>
+          <a href="#" class="button-link" data-aos="fade-up" data-aos-delay="200">テーマ03：次世代通信技術の研究</a>
+          <a href="#" class="button-link" data-aos="fade-up" data-aos-delay="300">テーマ04：量子コンピューティング応用</a>
+          <a href="#" class="button-link" data-aos="fade-up" data-aos-delay="400">テーマ05：拡張現実(AR)システムの開発</a>
+          <a href="#" class="button-link" data-aos="fade-up" data-aos-delay="500">テーマ06：深層学習モデルの効率化</a>
+          <a href="#" class="button-link" data-aos="fade-up" data-aos-delay="600">テーマ07：ドローン群制御システム</a>
+          <a href="#" class="button-link" data-aos="fade-up" data-aos-delay="700">テーマ08：バイオインフォマティクス解析</a>
+          <a href="#" class="button-link" data-aos="fade-up" data-aos-delay="800">テーマ09：スマートシティの最適化</a>
+          <a href="#" class="button-link" data-aos="fade-up" data-aos-delay="900">テーマ10：自律型ロボットの行動計画</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 外部スクリプト -->
+    <script src="https://unpkg.com/ityped@1.0.0/dist/index.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+      window.onload = function () {
+        // iTyped 初期化
+        const strings = [
+          "// 研究テーマの選択を待機しています。テーマを選択してください。"
+        ];
+
+        ityped.init(document.querySelector("#main-typing"), {
+          strings: strings,
+          loop: true,
+          typeSpeed: 80,
+          backSpeed: 40,
+          backDelay: 60000,
+          startDelay: 500,
+          showCursor: true
+        });
+
+        // AOS 初期化
+        AOS.init({
+          once: true,
+          easing: 'ease-out-back',
+          duration: 1000
+        });
+      };
+    </script>
+  </body>
+</html>
