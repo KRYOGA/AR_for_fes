@@ -3,147 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>川野邊研究室 //研究テーマ発表会</title>
-        
         <link href="style.css" rel="stylesheet">
-        
-        <style>
-            /* ------------------------------------------- */
-            /* 全体スタイル：パララックス背景とモダンデザイン */
-            /* ------------------------------------------- */
-            body {
-                margin: 0;
-                padding: 0;
-                height: 100vh;
-                overflow-x: hidden;
-                
-                /* 背景画像の設定 (mediabox.pngを同じフォルダに配置してください) */
-                background-image: url('mediabox.png'); 
-                background-size: cover;
-                background-position: center;
-                background-attachment: fixed; /* パララックス効果の核 */
-                
-                /* Windows向けプログラミングフォント */
-                font-family: 'Consolas', 'Courier New', monospace; 
-            }
-
-            /* ★★★ コンテンツラッパー：背景の上に重ねてスクロールさせる ★★★ */
-            .content-wrapper {
-                /* 不透明度0.98で設定。画像をわずかに透かしつつ、文字の視認性を確保 */
-                background-color: rgba(255, 255, 255, 0.70); 
-                min-height: 200vh; /* スクロール領域を確保 */
-                padding: 80px 40px;
-                color: #333333;
-                text-align: center;
-                position: relative;
-                z-index: 1;
-                /* Windows向けモダンフォントに上書き */
-                font-family: 'Helvetica Neue', 'Arial', 'Noto Sans JP', sans-serif; 
-            }
-
-
-            /* ------------------------------------------- */
-            /* ヘッディング＆タイピングアニメーション */
-            /* ------------------------------------------- */
-            h1 {
-                font-size: 2.8em;
-                color: #000000;
-                font-weight: 700;
-                letter-spacing: 1px;
-                margin-bottom: 10px;
-                margin-top: 0;
-            }
-
-            #main-typing-container {
-                min-height: 40px;
-                margin-bottom: 80px;
-            }
-
-            h2 {
-                font-size: 1.5em;
-                color: #555555;
-                font-weight: 400;
-                margin: 0;
-                display: inline;
-            }
-
-            /* iTypedカーソルスタイル */
-            .ityped-cursor {
-                font-size: 1.5em;
-                opacity: 1;
-                animation: blink 0.7s infinite;
-                color: #007AFF;
-            }
-            @keyframes blink {
-                0% { opacity: 1; }
-                50% { opacity: 0; }
-                100% { opacity: 1; }
-            }
-
-            /* ------------------------------------------- */
-            /* レイアウト調整：ボタン間隔と整列 */
-            /* ------------------------------------------- */
-            .AR-link{
-                display:flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                max-width: 1400px;
-            }
-
-            .theme-links {
-                display: flex;
-                flex-wrap: wrap; 
-                justify-content: center; 
-                max-width: 1400px; 
-                margin: 0 auto;
-            }
-
-            /* ------------------------------------------- */
-            /* ボタンリンク：モダン＆ミニマルデザイン (サイズ統一) */
-            /* ------------------------------------------- */
-            .button-link {
-                display: flex; /* サイズ統一のためのflex設定 */
-                align-items: center; /* 垂直方向の中央揃え */
-                justify-content: center; /* 水平方向の中央揃え */
-                text-align: center;
-                
-                /* padding: 25px 40px; を削除または調整 */
-                margin: 25px;
-                
-                /* サイズを完全に固定 */
-                width: 400px; /* min-widthからwidthに変更して完全固定 */
-                height: 120px; /* 高さも統一 */
-                
-                /* テキストの折り返しとオーバーフロー制御 */
-                overflow: hidden;
-                word-wrap: break-word;
-                hyphens: auto;
-                
-                /* ベースデザイン */
-                background-color: #F5F5F5;
-                color: #000000;
-                border: 1px solid #EEEEEE;
-                border-radius: 8px;
-                
-                text-decoration: none;
-                cursor: pointer;
-                font-size: 1.1em; /* フォントサイズを少し小さくして統一感を向上 */
-                font-weight: 500;
-                letter-spacing: 0.5px;
-                line-height: 1.3; /* 行間を調整 */
-                
-                /* アニメーション設定 */
-                transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            }
-
-            .button-link:hover {
-                background-color: #FFFFFF;
-                color: #000000;
-                border-color: #007AFF;
-                
-                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-                transform: translateY(-3px);
-            }
-        </style>
     </head>
 
     <body>
@@ -156,7 +16,7 @@
             <div style="margin-top: 50vh;">
 
                 <div class="AR-link">
-                    <a href="'contens.html" class="button-link" data-aos="fade-up">ARコンテンツ</a>
+                    <a href="contents.html" class="button-link" data-aos="fade-up">ARコンテンツ</a>
                 </div>
 
                 <div class="theme-links">
