@@ -76,6 +76,14 @@ h2 {
   margin-top: 50vh;
 }
 
+
+.AR-link{
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 1400px;
+}
+
 .theme-links {
   display: flex;
   flex-wrap: wrap;
