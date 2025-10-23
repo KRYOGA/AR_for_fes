@@ -38,8 +38,36 @@
                 ></a-asset-item>
             </a-assets>
 
+            <a-assets>
+                <a-asset-item
+                    id="animated-asset3"
+                    src="assets3/asset.mp4"
+                ></a-asset-item>
+            </a-assets>
+
+
             
-            <! マーカーの追加(id = marker###でid名が被らないように変更, gltf-model=###で上で指定したidを入力する)>
+            <! マーカーの追加(id = marker###でid名が被らないように変更, url も変更する, gltf-model=###で上で指定したidを入力する)>
+            <a-marker
+                id="animated-marker"
+                type="pattern"
+                preset="custom"
+                url="assets1/marker.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+                id="marker1"
+            >
+                <a-entity
+                    id="bowser-model"
+                    scale="0.14516536091916724 0.14516536091916724 0.14516536091916724"
+                    animation-mixer="loop: repeat"
+                    gltf-model="#animated-asset1"
+                    class="clickable"
+                    gesture-handler
+                ></a-entity>
+            </a-marker>
+            
             <a-marker
                 id="animated-marker"
                 type="pattern"
@@ -48,7 +76,7 @@
                 raycaster="objects: .clickable"
                 emitevents="true"
                 cursor="fuse: false; rayOrigin: mouse;"
-                id="markerA"
+                id="marker2"
             >
                 <a-entity
                     id="bowser-model"
@@ -60,21 +88,23 @@
                 ></a-entity>
             </a-marker>
 
+            
+
             <a-marker
                 id="animated-marker"
                 type="pattern"
                 preset="custom"
-                url="assets1/marker.patt"
+                url="assets3/marker.patt"
                 raycaster="objects: .clickable"
                 emitevents="true"
                 cursor="fuse: false; rayOrigin: mouse;"
-                id="markerB"
+                id="marker3"
             >
                 <a-entity
                     id="bowser-model"
                     scale="0.14516536091916724 0.14516536091916724 0.14516536091916724"
                     animation-mixer="loop: repeat"
-                    gltf-model="#animated-asset1"
+                    gltf-model="animated-asset3"
                     class="clickable"
                     gesture-handler
                 ></a-entity>
