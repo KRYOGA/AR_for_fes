@@ -13,6 +13,7 @@ body {
   background-position: center;
   background-attachment: fixed;
 
+
   /* フォント設定 */
   font-family: "Consolas", "Courier New", monospace;
 }
@@ -22,7 +23,7 @@ body {
 ========================================= */
 .content-wrapper {
   background-color: rgba(255, 255, 255, 0.7);
-  min-height: 200vh;
+  min-height: 100vh;
   padding: 80px 40px;
   color: #333;
   text-align: center;
@@ -69,11 +70,15 @@ h2 {
   100% { opacity: 1; }
 }
 
+#main-typing {
+  white-space: pre-line;
+}
+
 /* =========================================
    テーマリンクセクション
 ========================================= */
 .theme-section {
-  margin-top: 50vh;
+  margin-top: 40vh;
 }
 
 
@@ -104,7 +109,7 @@ h2 {
   margin: 15px;
   padding: 20px;
   
-  /* 🔽 可変長設定 */
+  /* 可変長設定 */
   width: 80%;              /* 基本は画面幅の80% */
   max-width: 400px;        /* PCでは最大400pxまで */
   min-width: 280px;        /* スマホでは最低280px確保 */
@@ -133,7 +138,7 @@ h2 {
   transform: translateY(-3px);
 }
 
-/* 🔽 スマホ（600px以下）専用の最適化 */
+/* スマホ（600px以下）専用の最適化 */
 @media (max-width: 600px) {
   .button-link {
     font-size: 0.9em;

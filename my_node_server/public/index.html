@@ -51,16 +51,16 @@
                     strings: strings,
                     loop: false,          // ループはしない
                     typeSpeed: 70,        // タイピング速度
-                    backSpeed: 30,        // 消去速度
+                    backSpeed: 20,        // 消去速度
                     backDelay: 1000,      // 消去までの待機時間
-                    startDelay: 500,      // 開始までの待機時間
+                    startDelay: 100,      // 開始までの待機時間
                     showCursor: true,     // カーソル表示
                     onFinished: function() {
                         // 3. タイピングアニメーション完了後の処理
                         // 3秒後に main.html へ自動遷移
                         setTimeout(() => {
                             window.location.href = "main.html"; // 遷移先のファイル名を指定
-                        }, 3000); 
+                        }, 2000); 
                     }
                 });
             }
