@@ -24,15 +24,13 @@
             embedded
             gesture-detector
         >
-            <!--オブジェクトの追加 (id, srcを変更すること)-->
-            <!--a-assetsは３Dオブジェクトのためのタグ-->
+
+            <!--a-assets：３Dオブジェクトのためのタグ-->
             <a-assets>
                 <a-asset-item id="animated-asset1" src="assets1/soccerball.gltf"></a-asset-item>
                 <a-asset-item id="animated-asset2" src="assets2/axe.gltf"></a-asset-item>
             </a-assets>
 
-
-            
             <!--マーカーの追加(id = marker###でid名が被らないように変更, url も変更する, gltf-model=###で上で指定したidを入力する)-->
             <a-marker
                 id="marker1"
@@ -72,7 +70,7 @@
                 ></a-entity>
             </a-marker>
 
-
+            <!--画像にアクセスする際のコード-->>
             <a-marker
                 id="marker3"
                 type="pattern"
