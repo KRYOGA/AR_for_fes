@@ -11,25 +11,6 @@
         <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
         <!--検出されたジェスチャーに基づきオブジェクトをコントロール--> 
         <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
-
-        <script>
-            AFRAME.registerComponent('videohandler', {
-                init: function () {
-                    var marker = this.el;
-                    this.vid = document.querySelector("#vid");
-
-                    marker.addEventListener('markerFound', function () {
-                        this.toggle = true;
-                        this.vid.play();
-                    }.bind(this));
-
-                    marker.addEventListener('markerLost', function () {
-                        this.toggle = false;
-                        this.vid.pause();
-                    }.bind(this));
-                },
-            });
-        </script>
     </head>
 
 
@@ -43,40 +24,24 @@
             embedded
             gesture-detector
         >
-            <! オブジェクトの追加 (id, srcを変更すること)>
+            <!--オブジェクトの追加 (id, srcを変更すること)-->
+            <!--a-assetsは３Dオブジェクトのためのタグ-->
             <a-assets>
-                <a-asset-item
-                    id="animated-asset1"
-                    src="assets1/soccerball.gltf"
-                ></a-asset-item>
-            </a-assets>
-
-            <a-assets>
-                <a-asset-item
-                    id="animated-asset2"
-                    src="assets2/axe.gltf"
-                ></a-asset-item>
-            </a-assets>
-
-            <a-assets>
-                <a-asset-item
-                    id="animated-asset3"
-                    src="assets3/asset.mp4"
-                ></a-asset-item>
+                <a-asset-item id="animated-asset1" src="assets1/soccerball.gltf"></a-asset-item>
+                <a-asset-item id="animated-asset2" src="assets2/axe.gltf"></a-asset-item>
             </a-assets>
 
 
             
-            <! マーカーの追加(id = marker###でid名が被らないように変更, url も変更する, gltf-model=###で上で指定したidを入力する)>
+            <!--マーカーの追加(id = marker###でid名が被らないように変更, url も変更する, gltf-model=###で上で指定したidを入力する)-->
             <a-marker
-                id="animated-marker"
+                id="marker1"
                 type="pattern"
                 preset="custom"
                 url="assets1/marker.patt"
                 raycaster="objects: .clickable"
                 emitevents="true"
-                cursor="fuse: false; rayOrigin: mouse;"
-                id="marker1"
+                cursor="fuse: false; rayOrigin: mouse;" 
             >
                 <a-entity
                     id="bowser-model"
@@ -89,14 +54,13 @@
             </a-marker>
             
             <a-marker
-                id="animated-marker"
+                id="marker2"
                 type="pattern"
                 preset="custom"
                 url="assets2/marker.patt"
                 raycaster="objects: .clickable"
                 emitevents="true"
                 cursor="fuse: false; rayOrigin: mouse;"
-                id="marker2"
             >
                 <a-entity
                     id="bowser-model"
@@ -108,26 +72,24 @@
                 ></a-entity>
             </a-marker>
 
-            
 
             <a-marker
-                id="animated-marker"
+                id="marker3"
                 type="pattern"
                 preset="custom"
                 url="assets3/marker.patt"
                 raycaster="objects: .clickable"
                 emitevents="true"
                 cursor="fuse: false; rayOrigin: mouse;"
-                id="marker3"
             >
-                <a-entity
-                    id="bowser-model"
-                    scale="0.14516536091916724 0.14516536091916724 0.14516536091916724"
-                    animation-mixer="loop: repeat"
-                    gltf-model="animated-asset3"
+                <a-image
+                    src="assets3/acc.png"
+                    width="5"
+                    height="5"
+                    rotation="-90 0 0"  
+                    position="0 0 0"
                     class="clickable"
-                    gesture-handler
-                ></a-entity>
+                ></a-image>
             </a-marker>
 
             <a-entity camera></a-entity>
