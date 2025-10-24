@@ -1,0 +1,615 @@
+<!doctype html>
+<html>
+    
+<!--実験用のファイルだから消すな！！！-->
+
+    <head>
+        <!--web 上でVR体験を構築するためのフレームワーク-->
+        <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script> 
+        <!--A frameにAR機能を追加し、location basedを実現-->
+        <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script> 
+        <!--3Dモデルの読み込みやその他追加機能を提供-->
+        <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script> 
+        <!--ユーザの画面上での操作を認識-->
+        <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
+        <!--検出されたジェスチャーに基づきオブジェクトをコントロール--> 
+        <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
+    </head>
+
+
+    <body style="margin: 0; overflow: hidden;">
+        <a-scene
+            vr-mode-ui="enabled: false;"
+            loading-screen="enabled: false;"
+            renderer="logarithmicDepthBuffer: true;"
+            arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
+            id="scene"
+            embedded
+            gesture-detector
+        >
+
+            <!--a-assets：３Dオブジェクトのためのタグ-->
+            <a-assets>
+                <a-asset-item id="animated-asset1" src="assets/assets1/soccerball.gltf"></a-asset-item>
+                <a-asset-item id="animated-asset2" src="assets/assets2/axe.gltf"></a-asset-item>
+            </a-assets>
+
+            <!--マーカーの追加(id = marker###でid名が被らないように変更, url も変更する, gltf-model=###で上で指定したidを入力する)-->
+            <a-marker
+                id="marker1"
+                type="pattern"
+                preset="custom"
+                url="assets/assets1/marker.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;" 
+            >
+                <a-entity
+                    id="bowser-model"
+                    scale="0.14516536091916724 0.14516536091916724 0.14516536091916724"
+                    animation-mixer="loop: repeat"
+                    gltf-model="#animated-asset1"
+                    class="clickable"
+                    gesture-handler
+                ></a-entity>
+            </a-marker>
+            
+            <a-marker
+                id="marker2"
+                type="pattern"
+                preset="custom"
+                url="assets/assets2/marker.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+            >
+                <a-entity
+                    id="bowser-model"
+                    scale="0.14516536091916724 0.14516536091916724 0.14516536091916724"
+                    animation-mixer="loop: repeat"
+                    gltf-model="#animated-asset2"
+                    class="clickable"
+                    gesture-handler
+                ></a-entity>
+            </a-marker>
+
+            <!-- 画像に対応しているコード -->
+
+            <!-- id = 名前でもいいかも ex. id='kurosawa'とか -->
+             <!-- url = マーカーの相対パス (e.g. assets/name/marker.patt). name だけ変えれば良いはず-->
+            <a-marker
+                id="marker3"
+                type="pattern"
+                preset="custom"
+                url="assets/assets3/marker.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+            >
+            <!-- src = 表示させたい画像の相対パス ####.png だけ変えれば良いはず-->
+                <a-image
+                    src="assets/assets3/acc.png"
+                    width="5"
+                    height="5"
+                    rotation="-90 0 0"  
+                    position="0 0 0"
+                    class="clickable"
+                ></a-image>
+            </a-marker>
+
+            <!-- 相川専用 -->>
+            <a-marker
+                id="aikawa"
+                type="pattern"
+                preset="custom"
+                url="assets/aikawa/marker.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+            >
+            <!-- src = 表示させたい画像の相対パス ####.png だけ変えれば良いはず-->
+                <a-image
+                    src="assets/aikawa/####.png"
+                    width="5"
+                    height="5"
+                    rotation="-90 0 0"  
+                    position="0 0 0"
+                    class="clickable"
+                ></a-image>
+            </a-marker>
+
+            <!-- 浅川専用 -->>
+            <a-marker
+                id="asakawa"
+                type="pattern"
+                preset="custom"
+                url="assets/asakawa/marker.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+            >
+            <!-- src = 表示させたい画像の相対パス ####.png だけ変えれば良いはず-->
+                <a-image
+                    src="assets/asakawa/####.png"
+                    width="5"
+                    height="5"
+                    rotation="-90 0 0"  
+                    position="0 0 0"
+                    class="clickable"
+                ></a-image>
+            </a-marker>
+
+            <!-- 池内専用 -->>
+            <a-marker
+                id="ikeuchi"
+                type="pattern"
+                preset="custom"
+                url="assets/ikeuchi/marker.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+            >
+            <!-- src = 表示させたい画像の相対パス ####.png だけ変えれば良いはず-->
+                <a-image
+                    src="assets/ikeuchi/####.png"
+                    width="5"
+                    height="5"
+                    rotation="-90 0 0"  
+                    position="0 0 0"
+                    class="clickable"
+                ></a-image>
+            </a-marker>
+
+            <!-- 岩田専用 -->>
+            <a-marker
+                id="iwata"
+                type="pattern"
+                preset="custom"
+                url="assets/iwata/marker.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+            >
+            <!-- src = 表示させたい画像の相対パス ####.png だけ変えれば良いはず-->
+                <a-image
+                    src="assets/iwata/####.png"
+                    width="5"
+                    height="5"
+                    rotation="-90 0 0"  
+                    position="0 0 0"
+                    class="clickable"
+                ></a-image>
+            </a-marker>
+
+            <!-- 小林専用 -->>
+            <a-marker
+                id="kobayashi"
+                type="pattern"
+                preset="custom"
+                url="assets/kobayashi/marker.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+            >
+            <!-- src = 表示させたい画像の相対パス ####.png だけ変えれば良いはず-->
+                <a-image
+                    src="assets/kobayashi/####.png"
+                    width="5"
+                    height="5"
+                    rotation="-90 0 0"  
+                    position="0 0 0"
+                    class="clickable"
+                ></a-image>
+            </a-marker>
+
+            <!-- 熊田専用 -->>
+            <a-marker
+                id="kumada"
+                type="pattern"
+                preset="custom"
+                url="assets/kumada/marker.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+            >
+            <!-- src = 表示させたい画像の相対パス ####.png だけ変えれば良いはず-->
+                <a-image
+                    src="assets/kumada/####.png"
+                    width="5"
+                    height="5"
+                    rotation="-90 0 0"  
+                    position="0 0 0"
+                    class="clickable"
+                ></a-image>
+            </a-marker>
+
+            <!-- 黒澤専用 -->>
+            <a-marker
+                id="kurosawa"
+                type="pattern"
+                preset="custom"
+                url="assets/kurosawa/marker.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+            >
+            <!-- src = 表示させたい画像の相対パス ####.png だけ変えれば良いはず-->
+                <a-image
+                    src="assets/kurosawa/####.png"
+                    width="5"
+                    height="5"
+                    rotation="-90 0 0"  
+                    position="0 0 0"
+                    class="clickable"
+                ></a-image>
+            </a-marker>
+
+            <!-- 三浦専用 -->>
+            <a-marker
+                id="miura"
+                type="pattern"
+                preset="custom"
+                url="assets/miura/marker.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+            >
+            <!-- src = 表示させたい画像の相対パス ####.png だけ変えれば良いはず-->
+                <a-image
+                    src="assets/miura/####.png"
+                    width="5"
+                    height="5"
+                    rotation="-90 0 0"  
+                    position="0 0 0"
+                    class="clickable"
+                ></a-image>
+            </a-marker>
+
+            <!-- 森田専用 -->>
+            <a-marker
+                id="morita"
+                type="pattern"
+                preset="custom"
+                url="assets/morita/marker.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+            >
+            <!-- src = 表示させたい画像の相対パス ####.png だけ変えれば良いはず-->
+                <a-image
+                    src="assets/morita/####.png"
+                    width="5"
+                    height="5"
+                    rotation="-90 0 0"  
+                    position="0 0 0"
+                    class="clickable"
+                ></a-image>
+            </a-marker>
+
+            <!-- 森谷専用 -->>
+            <a-marker
+                id="moriya"
+                type="pattern"
+                preset="custom"
+                url="assets/moriya/marker.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+            >
+            <!-- src = 表示させたい画像の相対パス ####.png だけ変えれば良いはず-->
+                <a-image
+                    src="assets/moriya/####.png"
+                    width="5"
+                    height="5"
+                    rotation="-90 0 0"  
+                    position="0 0 0"
+                    class="clickable"
+                ></a-image>
+            </a-marker>
+
+            <!-- 元根専用 -->>
+            <a-marker
+                id="motone"
+                type="pattern"
+                preset="custom"
+                url="assets/motone/marker.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+            >
+            <!-- src = 表示させたい画像の相対パス ####.png だけ変えれば良いはず-->
+                <a-image
+                    src="assets/motone/####.png"
+                    width="5"
+                    height="5"
+                    rotation="-90 0 0"  
+                    position="0 0 0"
+                    class="clickable"
+                ></a-image>
+            </a-marker>
+
+            <!-- 成瀬専用 -->>
+            <a-marker
+                id="naruse"
+                type="pattern"
+                preset="custom"
+                url="assets/naruse/marker.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+            >
+            <!-- src = 表示させたい画像の相対パス ####.png だけ変えれば良いはず-->
+                <a-image
+                    src="assets/naruse/####.png"
+                    width="5"
+                    height="5"
+                    rotation="-90 0 0"  
+                    position="0 0 0"
+                    class="clickable"
+                ></a-image>
+            </a-marker>
+
+            <!-- 根津専用 -->>
+            <a-marker
+                id="nedu"
+                type="pattern"
+                preset="custom"
+                url="assets/nedu/marker.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+            >
+            <!-- src = 表示させたい画像の相対パス ####.png だけ変えれば良いはず-->
+                <a-image
+                    src="assets/nedu/####.png"
+                    width="5"
+                    height="5"
+                    rotation="-90 0 0"  
+                    position="0 0 0"
+                    class="clickable"
+                ></a-image>
+            </a-marker>
+
+            <!-- 西野専用 -->>
+            <a-marker
+                id="nishino"
+                type="pattern"
+                preset="custom"
+                url="assets/nishino/marker.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+            >
+            <!-- src = 表示させたい画像の相対パス ####.png だけ変えれば良いはず-->
+                <a-image
+                    src="assets/nishino/####.png"
+                    width="5"
+                    height="5"
+                    rotation="-90 0 0"  
+                    position="0 0 0"
+                    class="clickable"
+                ></a-image>
+            </a-marker>
+
+            <!-- 野川専用 -->>
+            <a-marker
+                id="nogawa"
+                type="pattern"
+                preset="custom"
+                url="assets/nogawa/marker.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+            >
+            <!-- src = 表示させたい画像の相対パス ####.png だけ変えれば良いはず-->
+                <a-image
+                    src="assets/nogawa/####.png"
+                    width="5"
+                    height="5"
+                    rotation="-90 0 0"  
+                    position="0 0 0"
+                    class="clickable"
+                ></a-image>
+            </a-marker>
+
+            <!-- 及川専用 -->>
+            <a-marker
+                id="oikawa"
+                type="pattern"
+                preset="custom"
+                url="assets/oikawa/marker.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+            >
+            <!-- src = 表示させたい画像の相対パス ####.png だけ変えれば良いはず-->
+                <a-image
+                    src="assets/oikawa/####.png"
+                    width="5"
+                    height="5"
+                    rotation="-90 0 0"  
+                    position="0 0 0"
+                    class="clickable"
+                ></a-image>
+            </a-marker>
+
+            <!-- 鬼形専用 -->>
+            <a-marker
+                id="onigata"
+                type="pattern"
+                preset="custom"
+                url="assets/onigata/marker.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+            >
+            <!-- src = 表示させたい画像の相対パス ####.png だけ変えれば良いはず-->
+                <a-image
+                    src="assets/onigata/####.png"
+                    width="5"
+                    height="5"
+                    rotation="-90 0 0"  
+                    position="0 0 0"
+                    class="clickable"
+                ></a-image>
+            </a-marker>
+
+            <!-- 尾張専用 -->>
+            <a-marker
+                id="owari"
+                type="pattern"
+                preset="custom"
+                url="assets/owari/marker.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+            >
+            <!-- src = 表示させたい画像の相対パス ####.png だけ変えれば良いはず-->
+                <a-image
+                    src="assets/owari/####.png"
+                    width="5"
+                    height="5"
+                    rotation="-90 0 0"  
+                    position="0 0 0"
+                    class="clickable"
+                ></a-image>
+            </a-marker>
+
+            <!-- 佐久間専用 -->>
+            <a-marker
+                id="sakuma"
+                type="pattern"
+                preset="custom"
+                url="assets/sakuma/marker.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+            >
+            <!-- src = 表示させたい画像の相対パス ####.png だけ変えれば良いはず-->
+                <a-image
+                    src="assets/sakuma/####.png"
+                    width="5"
+                    height="5"
+                    rotation="-90 0 0"  
+                    position="0 0 0"
+                    class="clickable"
+                ></a-image>
+            </a-marker>
+
+            <!-- 佐藤専用 -->>
+            <a-marker
+                id="satou"
+                type="pattern"
+                preset="custom"
+                url="assets/satou/marker.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+            >
+            <!-- src = 表示させたい画像の相対パス ####.png だけ変えれば良いはず-->
+                <a-image
+                    src="assets/satou/####.png"
+                    width="5"
+                    height="5"
+                    rotation="-90 0 0"  
+                    position="0 0 0"
+                    class="clickable"
+                ></a-image>
+            </a-marker>
+
+            <!-- 島村専用 -->>
+            <a-marker
+                id="shimamura"
+                type="pattern"
+                preset="custom"
+                url="assets/shimamura/marker.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+            >
+            <!-- src = 表示させたい画像の相対パス ####.png だけ変えれば良いはず-->
+                <a-image
+                    src="assets/shimamura/####.png"
+                    width="5"
+                    height="5"
+                    rotation="-90 0 0"  
+                    position="0 0 0"
+                    class="clickable"
+                ></a-image>
+            </a-marker>
+
+            <!-- 鳥居専用 -->>
+            <a-marker
+                id="torii"
+                type="pattern"
+                preset="custom"
+                url="assets/torii/marker.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+            >
+            <!-- src = 表示させたい画像の相対パス ####.png だけ変えれば良いはず-->
+                <a-image
+                    src="assets/torii/####.png"
+                    width="5"
+                    height="5"
+                    rotation="-90 0 0"  
+                    position="0 0 0"
+                    class="clickable"
+                ></a-image>
+            </a-marker>
+
+            <!-- 外山専用 -->>
+            <a-marker
+                id="toyama"
+                type="pattern"
+                preset="custom"
+                url="assets/toyama/marker.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+            >
+            <!-- src = 表示させたい画像の相対パス ####.png だけ変えれば良いはず-->
+                <a-image
+                    src="assets/toyama/####.png"
+                    width="5"
+                    height="5"
+                    rotation="-90 0 0"  
+                    position="0 0 0"
+                    class="clickable"
+                ></a-image>
+            </a-marker>
+
+            <!-- 山口専用 -->>
+            <a-marker
+                id="yamaguchi"
+                type="pattern"
+                preset="custom"
+                url="assets/yamaguchi/marker.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+            >
+            <!-- src = 表示させたい画像の相対パス ####.png だけ変えれば良いはず-->
+                <a-image
+                    src="assets/yamaguchi/####.png"
+                    width="5"
+                    height="5"
+                    rotation="-90 0 0"  
+                    position="0 0 0"
+                    class="clickable"
+                ></a-image>
+            </a-marker>
+
+            <a-entity camera></a-entity>
+        </a-scene>
+    </body>
+</html>
+
+
+
+
+
+
+
+
