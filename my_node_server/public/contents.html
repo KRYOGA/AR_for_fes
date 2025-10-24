@@ -27,8 +27,8 @@
 
             <!--a-assets：３Dオブジェクトのためのタグ-->
             <a-assets>
-                <a-asset-item id="animated-asset1" src="assets1/soccerball.gltf"></a-asset-item>
-                <a-asset-item id="animated-asset2" src="assets2/axe.gltf"></a-asset-item>
+                <a-asset-item id="animated-asset1" src="assets/assets1/soccerball.gltf"></a-asset-item>
+                <a-asset-item id="animated-asset2" src="assets/assets2/axe.gltf"></a-asset-item>
             </a-assets>
 
             <!--マーカーの追加(id = marker###でid名が被らないように変更, url も変更する, gltf-model=###で上で指定したidを入力する)-->
@@ -36,7 +36,7 @@
                 id="marker1"
                 type="pattern"
                 preset="custom"
-                url="assets1/marker.patt"
+                url="assets/assets1/marker.patt"
                 raycaster="objects: .clickable"
                 emitevents="true"
                 cursor="fuse: false; rayOrigin: mouse;" 
@@ -55,7 +55,7 @@
                 id="marker2"
                 type="pattern"
                 preset="custom"
-                url="assets2/marker.patt"
+                url="assets/assets2/marker.patt"
                 raycaster="objects: .clickable"
                 emitevents="true"
                 cursor="fuse: false; rayOrigin: mouse;"
@@ -75,13 +75,13 @@
                 id="marker3"
                 type="pattern"
                 preset="custom"
-                url="assets3/marker.patt"
+                url="assets/assets3/marker.patt"
                 raycaster="objects: .clickable"
                 emitevents="true"
                 cursor="fuse: false; rayOrigin: mouse;"
             >
                 <a-image
-                    src="assets3/acc.png"
+                    src="assets/assets3/acc.png"
                     width="5"
                     height="5"
                     rotation="-90 0 0"  
