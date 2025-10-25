@@ -43,7 +43,7 @@
                 // 1. タイピングする文字列の定義
                 const strings = [
                     "Hello world!",
-                    "KAWANOBElab...",
+                    "Media Box vol.20\nPresented by Kawanobe Lab...",  // change 10/25 14:04 sakuma
                 ];
 
                 // 2. iTypedの初期化と完了後の処理
@@ -54,7 +54,7 @@
                     backSpeed: 20,        // 消去速度
                     backDelay: 1000,      // 消去までの待機時間
                     startDelay: 100,      // 開始までの待機時間
-                    showCursor: true,     // カーソル表示
+                    showCursor: false,     // カーソル表示
                     onFinished: function() {
                         // 3. タイピングアニメーション完了後の処理
                         // 3秒後に main.html へ自動遷移
