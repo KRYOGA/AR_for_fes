@@ -27,7 +27,7 @@
 
             <!--a-assets：３Dオブジェクトのためのタグ-->
             <a-assets>
-                <a-asset-item id="animated-asset1" src="assets/assets1/soccerball.gltf"></a-asset-item>
+                <a-asset-item id="morita" src="assets/morita/morita.gltf"></a-asset-item>
                 <a-asset-item id="animated-asset2" src="assets/assets2/axe.gltf"></a-asset-item>
             </a-assets>
 
@@ -242,14 +242,14 @@
                 emitevents="true"
                 cursor="fuse: false; rayOrigin: mouse;"
             >
-                <a-image
-                    src="assets/morita/morita.png"
-                    width="5"
-                    height="5"
-                    rotation="-90 0 0"  
-                    position="0 0 0"
+            <a-entity
+                    id="morita"
+                    scale="0.14516536091916724 0.14516536091916724 0.14516536091916724"
+                    animation-mixer="loop: repeat"
+                    gltf-model="morita"
                     class="clickable"
-                ></a-image>
+                    gesture-handler
+                ></a-entity>
             </a-marker>
 
             <!-- 森谷専用 -->>
@@ -283,7 +283,7 @@
                 cursor="fuse: false; rayOrigin: mouse;"
             >
                 <a-image
-                    src="assets/motone/motone.png"
+                    src="assets/motone/motone.jpeg"
                     width="5"
                     height="5"
                     rotation="-90 0 0"  
