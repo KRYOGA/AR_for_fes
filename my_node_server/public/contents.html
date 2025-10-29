@@ -31,44 +31,25 @@
                 <a-asset-item id="animated-asset2" src="assets/assets2/axe.gltf"></a-asset-item>
             </a-assets>
 
-            <!--マーカーの追加(id = marker###でid名が被らないように変更, url も変更する, gltf-model=###で上で指定したidを入力する)-->
+            <!-- 森田専用３Dモデル -->
             <a-marker
-                id="marker1"
+                id="moritaMarker"
                 type="pattern"
-                preset="custom"
-                url="assets/assets1/marker.patt"
+                url="assets/morita/marker.patt"
                 raycaster="objects: .clickable"
                 emitevents="true"
                 cursor="fuse: false; rayOrigin: mouse;" 
             >
                 <a-entity
-                    id="bowser-model"
-                    scale="0.14516536091916724 0.14516536091916724 0.14516536091916724"
+                    id="morita"
+                    scale="1 1 1"
                     animation-mixer="loop: repeat"
-                    gltf-model="#animated-asset1"
+                    gltf-model="#morita"
                     class="clickable"
                     gesture-handler
                 ></a-entity>
             </a-marker>
             
-            <a-marker
-                id="marker2"
-                type="pattern"
-                preset="custom"
-                url="assets/assets2/marker.patt"
-                raycaster="objects: .clickable"
-                emitevents="true"
-                cursor="fuse: false; rayOrigin: mouse;"
-            >
-                <a-entity
-                    id="bowser-model"
-                    scale="0.14516536091916724 0.14516536091916724 0.14516536091916724"
-                    animation-mixer="loop: repeat"
-                    gltf-model="#animated-asset2"
-                    class="clickable"
-                    gesture-handler=
-                ></a-entity>
-            </a-marker>
 
             <!-- 画像に対応しているコード -->
             <!-- 相川専用 -->
@@ -81,7 +62,6 @@
                 emitevents="true"
                 cursor="fuse: false; rayOrigin: mouse;"
             >
-            <!-- src = 表示させたい画像の相対パス ####.png だけ変えれば良いはず-->
                 <a-image
                     src="assets/aikawa/aikawa.png"
                     width="1"
@@ -240,26 +220,6 @@
                 ></a-image>
             </a-marker>
 
-            <!-- 森田専用 -->>
-            <a-marker
-                id="morita"
-                type="pattern"
-                preset="custom"
-                url="assets/morita/marker.patt"
-                raycaster="objects: .clickable"
-                emitevents="true"
-                cursor="fuse: false; rayOrigin: mouse;"
-            >
-            <a-entity
-                    id="morita"
-                    scale="0.14516536091916724 0.14516536091916724 0.14516536091916724"
-                    animation-mixer="loop: repeat"
-                    gltf-model="morita"
-                    class="clickable"
-                    gesture-handler
-                ></a-entity>
-            </a-marker>
-
             <!-- 森谷専用 -->>
             <a-marker
                 id="moriya"
@@ -291,8 +251,8 @@
                 emitevents="true"
                 cursor="fuse: false; rayOrigin: mouse;"
             >
-                <a-imag>
-                    src="assets/motone/motone.png"
+                <a-image
+                    src="assets/motone/motone.jpeg"
                     width="1"
                     height="1"
                     rotation="-90 0 0"  
@@ -574,6 +534,9 @@
                     gesture-handler="rotationFactor: 0; minScale: 0.5; maxScale: 3"
                 ></a-image>
             </a-marker>
+
+            <a-light type="ambient" intensity="1"></a-light>
+            <a-light type="directional" position="0 1 0" intensity="1"></a-light>
 
             <a-entity camera></a-entity>
         </a-scene>
