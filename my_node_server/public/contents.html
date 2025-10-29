@@ -28,7 +28,7 @@
             <!--a-assets：３Dオブジェクトのためのタグ-->
             <a-assets>
                 <a-asset-item id="morita" src="assets/morita/morita.gltf"></a-asset-item>
-                <a-asset-item id="animated-asset2" src="assets/assets2/axe.gltf"></a-asset-item>
+                <a-asset-item id="aikawa" src="assets/aikawa/aikawa.gltf"></a-asset-item>
             </a-assets>
 
             <!-- 森田専用モデル -->
@@ -54,7 +54,7 @@
             <!-- 画像に対応しているコード -->
             <!-- 相川専用 -->
             <a-marker
-                id="aikawa"
+                id="aikawaMarker"
                 type="pattern"
                 preset="custom"
                 url="assets/aikawa/marker.patt"
@@ -62,15 +62,14 @@
                 emitevents="true"
                 cursor="fuse: false; rayOrigin: mouse;"
             >
-                <a-image
-                    src="assets/aikawa/aikawa.png"
-                    width="1"
-                    height="1"
-                    rotation="-90 0 0"  
-                    position="0 0 0"
+                <a-entity
+                    id="aikawa"
+                    scale="1 1 1"
+                    animation-mixer="loop: repeat"
+                    gltf-model="#aikawa"
                     class="clickable"
-                    gesture-handler="rotationFactor: 0; minScale: 0.5; maxScale: 3"
-                ></a-image>
+                    gesture-handler
+        ></a-entity>
             </a-marker>
 
             <!-- 浅川専用 -->>
