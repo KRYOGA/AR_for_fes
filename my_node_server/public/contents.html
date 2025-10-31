@@ -30,6 +30,7 @@
             <a-assets>
                 <a-asset-item id="morita" src="assets/morita/morita.gltf"></a-asset-item>
                 <a-asset-item id="aikawa" src="assets/aikawa/aikawa.gltf"></a-asset-item>
+                <a-asset-item id="sakuma" src="assets/sakuma/sakuma.gltf"></a-asset-item>
 
             <!--a-assets：MP4コンテンツのためのタグ
                 対象者：佐藤-->     <!--TODO：動作しない，黒澤さん頼んだ　line448〜-->
@@ -426,7 +427,7 @@
 
             <!-- 佐久間専用 -->>
             <a-marker
-                id="sakuma"
+                id="sakumaMarker"
                 type="pattern"
                 preset="custom"
                 url="assets/sakuma/marker.patt"
@@ -434,15 +435,14 @@
                 emitevents="true"
                 cursor="fuse: false; rayOrigin: mouse;"
             >
-                <a-image
-                    src="assets/sakuma/sakuma.png"
-                    width="1"
-                    height="1"
-                    rotation="-90 0 0"  
-                    position="0 0 0"
+                <a-entity
+                    id="sakuma"
+                    scale="1 1 1"
+                    animation-mixer="loop: repeat"
+                    gltf-model="#sakuma"
                     class="clickable"
-                    gesture-handler="rotationFactor: 0; minScale: 0.5; maxScale: 5"
-                ></a-image>
+                    gesture-handler
+            ></a-entity>
             </a-marker>
 
             <!-- 佐藤専用 -->>
