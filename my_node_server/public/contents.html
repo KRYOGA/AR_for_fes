@@ -25,10 +25,26 @@
             gesture-detector
         >
 
-            <!--a-assets：３Dオブジェクトのためのタグ-->
+            <!--a-assets：３Dオブジェクトのためのタグ
+                対象者：相川，森田-->
             <a-assets>
                 <a-asset-item id="morita" src="assets/morita/morita.gltf"></a-asset-item>
                 <a-asset-item id="aikawa" src="assets/aikawa/aikawa.gltf"></a-asset-item>
+
+            <!--a-assets：MP4コンテンツのためのタグ
+                対象者：佐藤-->     <!--TODO：動作しない，黒澤さん頼んだ　line448〜-->
+                <video
+                    id="satouVid"
+                    src="assets/satou/satou.mp4"
+                    preload="auto"
+                    response-type="arraybuffer"
+                    loop
+                    crossorigin
+                    webkit-playsinline
+                    autoplay
+                    muted
+                    playsinline
+                    ></video>
             </a-assets>
 
             <!-- 森田専用モデル -->
@@ -398,7 +414,7 @@
                 cursor="fuse: false; rayOrigin: mouse;"
             >
                 <a-image
-                    src="assets/owari/owari.png"
+                    src="assets/owari/owari.JPG"
                     width="1"
                     height="1"
                     rotation="-90 0 0"  
@@ -435,19 +451,25 @@
                 type="pattern"
                 preset="custom"
                 url="assets/satou/marker.patt"
+
+                videohandler
+                smooth="true"
+                smoothCount="10"
+                smoothTolerance="0.01"
+                smoothThreshold="5"
+
                 raycaster="objects: .clickable"
                 emitevents="true"
                 cursor="fuse: false; rayOrigin: mouse;"
             >
-                <a-image
-                    src="assets/satou/satou.png"
-                    width="1"
-                    height="1"
-                    rotation="-90 0 0"  
-                    position="0 0 0"
+                <a-video
+                    src="#satouVid"
+                    scale="1 1 1"
+                    position="0 0.1 0"
+                    rotation="-90 0 0"
                     class="clickable"
-                    gesture-handler="rotationFactor: 0; minScale: 0.5; maxScale: 5"
-                ></a-image>
+                    gesture-handler
+            ></a-video>
             </a-marker>
 
             <!-- 島村専用 -->>
