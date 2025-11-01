@@ -11,6 +11,34 @@
         <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
         <!--検出されたジェスチャーに基づきオブジェクトをコントロール--> 
         <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
+        <script>
+            // 動画の再生/停止をマーカー検出に連動させる
+            AFRAME.registerComponent('videohandler', {
+                init: function () {
+                    var videoEl = document.querySelector('#Vid');
+                    if (!videoEl) return;
+
+                    var tryPlay = function () {
+                        try {
+                            videoEl.muted = true;
+                            var p = videoEl.play();
+                            if (p && typeof p.catch === 'function') {
+                                p.catch(function () { /* ignore autoplay rejections */ });
+                            }
+                        } catch (e) { /* no-op */ }
+                    };
+
+                    this.el.addEventListener('markerFound', tryPlay);
+                    this.el.addEventListener('markerLost', function () {
+                        try { videoEl.pause(); videoEl.currentTime = 0; } catch (e) { /* no-op */ }
+                    });
+
+                    var resume = function () { tryPlay(); window.removeEventListener('touchend', resume); window.removeEventListener('click', resume); };
+                    window.addEventListener('touchend', resume);
+                    window.addEventListener('click', resume);
+                }
+            });
+        </script>
     </head>
 
 
@@ -26,12 +54,12 @@
         >
 
             <!--a-assets：３Dオブジェクトのためのタグ
-                対象者：相川，森田-->
+                対象者：相川，森田, 佐久間, 鳥居-->
             <a-assets>
                 <a-asset-item id="morita" src="assets/morita/morita.gltf"></a-asset-item>
                 <a-asset-item id="aikawa" src="assets/aikawa/aikawa.gltf"></a-asset-item>
                 <a-asset-item id="sakuma" src="assets/sakuma/sakuma.gltf"></a-asset-item>
-
+                <a-asset-item id="torii" src="assets/torii/torii.gltf"></a-asset-item>
             <!--a-assets：MP4コンテンツのためのタグ
                 対象者：佐藤-->     <!--TODO：動作しない，黒澤さん頼んだ　line448〜-->
                 <video
@@ -40,7 +68,7 @@
                     preload="auto"
                     response-type="arraybuffer"
                     loop
-                    crossorigin
+                    crossorigin="anonymous"
                     webkit-playsinline
                     autoplay
                     muted
@@ -86,10 +114,10 @@
                     gltf-model="#aikawa"
                     class="clickable"
                     gesture-handler
-        ></a-entity>
+                ></a-entity>
             </a-marker>
 
-            <!-- 浅川専用 -->>
+            <!-- 浅川専用 -->
             <a-marker
                 id="asakawa"
                 type="pattern"
@@ -110,7 +138,7 @@
                 ></a-image>
             </a-marker>
 
-            <!-- 池内専用 -->>
+            <!-- 池内専用 -->
             <a-marker
                 id="ikeuchi"
                 type="pattern"
@@ -131,7 +159,7 @@
                 ></a-image>
             </a-marker>
 
-            <!-- 岩田専用 -->>
+            <!-- 岩田専用 -->
             <a-marker
                 id="iwata"
                 type="pattern"
@@ -152,7 +180,7 @@
                 ></a-image>
             </a-marker>
 
-            <!-- 小林専用 -->>
+            <!-- 小林専用 -->
             <a-marker
                 id="kobayashi"
                 type="pattern"
@@ -173,7 +201,7 @@
                 ></a-image>
             </a-marker>
 
-            <!-- 熊田専用 -->>
+            <!-- 熊田専用 -->
             <a-marker
                 id="kumada"
                 type="pattern"
@@ -194,7 +222,7 @@
                 ></a-image>
             </a-marker>
 
-            <!-- 黒澤専用 -->>
+            <!-- 黒澤専用 -->
             <a-marker
                 id="kurosawa"
                 type="pattern"
@@ -215,7 +243,7 @@
                 ></a-image>
             </a-marker>
 
-            <!-- 三浦専用 -->>
+            <!-- 三浦専用 -->
             <a-marker
                 id="miura"
                 type="pattern"
@@ -236,7 +264,7 @@
                 ></a-image>
             </a-marker>
 
-            <!-- 森谷専用 -->>
+            <!-- 森谷専用 -->
             <a-marker
                 id="moriya"
                 type="pattern"
@@ -257,7 +285,7 @@
                 ></a-image>
             </a-marker>
 
-            <!-- 元根専用 -->>
+            <!-- 元根専用 -->
             <a-marker
                 id="motone"
                 type="pattern"
@@ -278,7 +306,7 @@
                 ></a-image>
             </a-marker>
 
-            <!-- 成瀬専用 -->>
+            <!-- 成瀬専用 -->
             <a-marker
                 id="naruse"
                 type="pattern"
@@ -299,7 +327,7 @@
                 ></a-image>
             </a-marker>
 
-            <!-- 根津専用 -->>
+            <!-- 根津専用 -->
             <a-marker
                 id="nedu"
                 type="pattern"
@@ -320,7 +348,7 @@
                 ></a-image>
             </a-marker>
 
-            <!-- 西野専用 -->>
+            <!-- 西野専用 -->
             <a-marker
                 id="nishino"
                 type="pattern"
@@ -341,7 +369,7 @@
                 ></a-image>
             </a-marker>
 
-            <!-- 野川専用 -->>
+            <!-- 野川専用 -->
             <a-marker
                 id="nogawa"
                 type="pattern"
@@ -362,7 +390,7 @@
                 ></a-image>
             </a-marker>
 
-            <!-- 及川専用 -->>
+            <!-- 及川専用 -->
             <a-marker
                 id="oikawa"
                 type="pattern"
@@ -383,7 +411,7 @@
                 ></a-image>
             </a-marker>
 
-            <!-- 鬼形専用 -->>
+            <!-- 鬼形専用 -->
             <a-marker
                 id="onigata"
                 type="pattern"
@@ -404,7 +432,7 @@
                 ></a-image>
             </a-marker>
 
-            <!-- 尾張専用 -->>
+            <!-- 尾張専用 -->
             <a-marker
                 id="owari"
                 type="pattern"
@@ -425,7 +453,7 @@
                 ></a-image>
             </a-marker>
 
-            <!-- 佐久間専用 -->>
+            <!-- 佐久間専用 -->
             <a-marker
                 id="sakumaMarker"
                 type="pattern"
@@ -445,7 +473,7 @@
             ></a-entity>
             </a-marker>
 
-            <!-- 佐藤専用 -->>
+            <!-- 佐藤専用 -->
             <a-marker
                 id="satou"
                 type="pattern"
@@ -468,11 +496,11 @@
                     position="0 0.1 0"
                     rotation="-90 0 0"
                     class="clickable"
-                    gesture-handler
+                    gesture-handler="rotationFactor: 0; minScale: 0.5; maxScale: 5"
             ></a-video>
             </a-marker>
 
-            <!-- 島村専用 -->>
+            <!-- 島村専用 -->
             <a-marker
                 id="shimamura"
                 type="pattern"
@@ -493,9 +521,9 @@
                 ></a-image>
             </a-marker>
 
-            <!-- 鳥居専用 -->>
+            <!-- 鳥居専用 -->
             <a-marker
-                id="torii"
+                id="toriiMarker"
                 type="pattern"
                 preset="custom"
                 url="assets/torii/marker.patt"
@@ -503,18 +531,17 @@
                 emitevents="true"
                 cursor="fuse: false; rayOrigin: mouse;"
             >
-                <a-image
-                    src="assets/torii/torii.jpg"
-                    width="1"
-                    height="1"
-                    rotation="-90 0 0"  
-                    position="0 0 0"
+                <a-entity
+                    id="torii"
+                    scale="1 1 1"
+                    animation-mixer="loop: repeat"
+                    gltf-model="#torii"
                     class="clickable"
-                    gesture-handler="rotationFactor: 0; minScale: 0.5; maxScale: 5"
-                ></a-image>
+                    gesture-handler
+                ></a-entity>
             </a-marker>
 
-            <!-- 外山専用 -->>
+            <!-- 外山専用 -->
             <a-marker
                 id="toyama"
                 type="pattern"
@@ -535,7 +562,7 @@
                 ></a-image>
             </a-marker>
 
-            <!-- 山口専用 -->>
+            <!-- 山口専用 -->
             <a-marker
                 id="yamaguchi"
                 type="pattern"
