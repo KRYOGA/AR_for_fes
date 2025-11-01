@@ -15,25 +15,62 @@
             // 動画の再生/停止をマーカー検出に連動させる
             AFRAME.registerComponent('videohandler', {
                 init: function () {
+                    var self = this;
                     var videoEl = document.querySelector('#Vid');
-                    if (!videoEl) return;
+                    if (!videoEl) {
+                        console.error('Video element #Vid not found');
+                        return;
+                    }
 
-                    var tryPlay = function () {
-                        try {
-                            videoEl.muted = true;
-                            var p = videoEl.play();
-                            if (p && typeof p.catch === 'function') {
-                                p.catch(function () { /* ignore autoplay rejections */ });
-                            }
-                        } catch (e) { /* no-op */ }
+                    // 動画の読み込み完了を待つ
+                    var onLoadedData = function() {
+                        videoEl.muted = true;
+                        videoEl.play().catch(function(err) {
+                            console.log('Video autoplay blocked:', err);
+                        });
                     };
 
-                    this.el.addEventListener('markerFound', tryPlay);
+                    if (videoEl.readyState >= 2) {
+                        // 既に読み込み済み
+                        onLoadedData();
+                    } else {
+                        videoEl.addEventListener('loadeddata', onLoadedData);
+                    }
+
+                    var tryPlay = function () {
+                        if (videoEl.readyState >= 2) {
+                            try {
+                                videoEl.muted = true;
+                                var p = videoEl.play();
+                                if (p && typeof p.catch === 'function') {
+                                    p.catch(function (err) { 
+                                        console.log('Video play failed:', err);
+                                    });
+                                }
+                            } catch (e) { 
+                                console.error('Video play error:', e);
+                            }
+                        }
+                    };
+
+                    this.el.addEventListener('markerFound', function() {
+                        console.log('Marker found, attempting to play video');
+                        tryPlay();
+                    });
                     this.el.addEventListener('markerLost', function () {
-                        try { videoEl.pause(); videoEl.currentTime = 0; } catch (e) { /* no-op */ }
+                        try { 
+                            videoEl.pause(); 
+                            videoEl.currentTime = 0; 
+                        } catch (e) { 
+                            console.error('Video pause error:', e);
+                        }
                     });
 
-                    var resume = function () { tryPlay(); window.removeEventListener('touchend', resume); window.removeEventListener('click', resume); };
+                    var resume = function () { 
+                        tryPlay(); 
+                        window.removeEventListener('touchend', resume); 
+                        window.removeEventListener('click', resume); 
+                    };
                     window.addEventListener('touchend', resume);
                     window.addEventListener('click', resume);
                 }
@@ -63,7 +100,7 @@
             <!--a-assets：MP4コンテンツのためのタグ
                 対象者：佐藤-->     <!--TODO：動作しない，黒澤さん頼んだ　line448〜-->
                 <video
-                    id="satouVid"
+                    id="Vid"
                     src="assets/satou/satou.mp4"
                     preload="auto"
                     response-type="arraybuffer"
@@ -113,7 +150,7 @@
                     animation-mixer="loop: repeat"
                     gltf-model="#aikawa"
                     class="clickable"
-                    gesture-handler
+                    gesture-handler="rotationFactor: 5; minScale: 0.5; maxScale: 8"
                 ></a-entity>
             </a-marker>
 
@@ -491,12 +528,14 @@
                 cursor="fuse: false; rayOrigin: mouse;"
             >
                 <a-video
-                    src="#satouVid"
-                    scale="1 1 1"
+                    src="#Vid"
+                    width="2"
+                    height="1.5"
                     position="0 0.1 0"
                     rotation="-90 0 0"
+                    material="shader: flat; side: double"
                     class="clickable"
-                    gesture-handler="rotationFactor: 0; minScale: 0.5; maxScale: 5"
+                    gesture-handler
             ></a-video>
             </a-marker>
 
