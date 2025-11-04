@@ -1,4 +1,4 @@
 {
     "liveServer.settings.port": 5501,
-    "livePreview.defaultPreviewPath": "/my_node_server/public/contents.html"
+    "livePreview.defaultPreviewPath": "/my_node_server/public/index.html"
 }

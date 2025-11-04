@@ -77,9 +77,6 @@ h2 {
 /* =========================================
    テーマリンクセクション
 ========================================= */
-.theme-section {
-  margin-top: 40vh;
-}
 
 .theme-links {
   display: flex;
@@ -120,7 +117,7 @@ h2 {
   line-height: 1.4;
   box-sizing: border-box; /* padding分で幅が崩れないように */
 
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .button-link:hover {
@@ -128,6 +125,88 @@ h2 {
   border-color: #007aff;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transform: translateY(-3px);
+}
+
+/* スタンプラリー UI */
+.stamp-section-title {
+  font-size: 1.4em;
+  font-weight: 600;
+  margin: 20px 0 10px 0;
+  color: #efeaea;
+}
+.stamp-progress {
+    margin-bottom: 18px;
+    color: #08f35a;
+    font-size: 0.95em;
+}
+.stamp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 14px;
+    max-width: 1000px;
+    margin: 0 auto 40px auto;
+}
+.stamp-item {
+    background: #F7F8FA;
+    border: 1px solid #E9EBF0;
+    border-radius: 10px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 110px;
+    transition: box-shadow 0.2s ease;
+}
+.stamp-item:hover {
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}
+.stamp-circle {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 2px dashed #B0B8C4;
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    color: #B0B8C4;
+    font-weight: 600;
+    font-size: 0.9em;
+}
+.stamp-circle.collected {
+    border: 2px solid #22C55E;
+    background: #E8F9EF;
+    color: #16A34A;
+}
+.stamp-label {
+    font-size: 0.95em;
+    color: #333333;
+    font-weight: 500;
+}
+
+/* コンプリートバナー */
+.stamp-complete {
+    display: none;
+    margin: 10px auto 22px auto;
+    max-width: 1000px;
+    background: linear-gradient(90deg, #22C55E, #16A34A);
+    color: #FFFFFF;
+    padding: 14px 18px;
+    border-radius: 10px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    box-shadow: 0 8px 20px rgba(22,163,74,0.25);
+}
+.stamp-complete.show {
+    display: block;
+    animation: pop 400ms ease;
+}
+
+@keyframes pop {
+    0% { transform: scale(0.96); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
 }
 
 /* スマホ（600px以下）専用の最適化 */
