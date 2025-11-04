@@ -2,19 +2,238 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>川野邊研究室 //研究テーマ発表会</title>
-        <link href="style.css" rel="stylesheet">
+        <title>川野邊研究室 // 研究テーマ発表会</title>
+        
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        
+        <style>
+            /* ------------------------------------------- */
+            /* 全体スタイル：パララックス背景とモダンデザイン */
+            /* ------------------------------------------- */
+            body {
+                margin: 0;
+                padding: 0;
+                height: 100vh;
+                overflow-x: hidden;
+                
+                /* 背景画像の設定 (mediabox.pngを同じフォルダに配置してください) */
+                background-image: url('mediabox.png'); 
+                background-size: cover;
+                background-position: center;
+                background-attachment: fixed; /* パララックス効果の核 */
+                
+                /* Windows向けプログラミングフォント */
+                font-family: 'Consolas', 'Courier New', monospace; 
+            }
+
+            /* ★★★ コンテンツラッパー：背景の上に重ねてスクロールさせる ★★★ */
+            .content-wrapper {
+                /* 不透明度0.98で設定。画像をわずかに透かしつつ、文字の視認性を確保 */
+                background-color: rgba(255, 255, 255, 0.70); 
+                min-height: 200vh; /* スクロール領域を確保 */
+                padding: 80px 40px;
+                color: #333333;
+                text-align: center;
+                position: relative;
+                z-index: 1;
+                /* Windows向けモダンフォントに上書き */
+                font-family: 'Helvetica Neue', 'Arial', 'Noto Sans JP', sans-serif; 
+            }
+
+
+            /* ------------------------------------------- */
+            /* ヘッディング＆タイピングアニメーション */
+            /* ------------------------------------------- */
+            h1 {
+                font-size: 2.8em;
+                color: #000000;
+                font-weight: 700;
+                letter-spacing: 1px;
+                margin-bottom: 10px;
+                margin-top: 0;
+            }
+
+            #main-typing-container {
+                min-height: 40px;
+                margin-bottom: 80px;
+            }
+
+            h2 {
+                font-size: 1.5em;
+                color: #555555;
+                font-weight: 400;
+                margin: 0;
+                display: inline;
+            }
+
+            /* iTypedカーソルスタイル */
+            .ityped-cursor {
+                font-size: 1.5em;
+                opacity: 1;
+                animation: blink 0.7s infinite;
+                color: #007AFF;
+            }
+            @keyframes blink {
+                0% { opacity: 1; }
+                50% { opacity: 0; }
+                100% { opacity: 1; }
+            }
+
+            /* ------------------------------------------- */
+            /* レイアウト調整：ボタン間隔と整列 */
+            /* ------------------------------------------- */
+            .theme-links {
+                display: flex;
+                flex-wrap: wrap; 
+                justify-content: center; 
+                max-width: 1400px; 
+                margin: 0 auto;
+            }
+
+            /* ------------------------------------------- */
+            /* ボタンリンク：モダン＆ミニマルデザイン (サイズ統一) */
+            /* ------------------------------------------- */
+            .button-link {
+                display: flex; /* サイズ統一のためのflex設定 */
+                align-items: center; /* 垂直方向の中央揃え */
+                justify-content: center; /* 水平方向の中央揃え */
+                text-align: center;
+                
+                /* padding: 25px 40px; を削除または調整 */
+                margin: 25px;
+                
+                /* サイズを固定 */
+                min-width: 350px; 
+                height: 140px; /* ★★★ 最大文字サイズに合わせて高さを固定 ★★★ */
+                
+                /* ベースデザイン */
+                background-color: #F5F5F5;
+                color: #000000;
+                border: 1px solid #EEEEEE;
+                border-radius: 8px;
+                
+                text-decoration: none;
+                cursor: pointer;
+                font-size: 1.2em;
+                font-weight: 500;
+                letter-spacing: 0.5px;
+                
+                /* アニメーション設定 */
+                transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            }
+
+            .button-link:hover {
+                background-color: #FFFFFF;
+                color: #000000;
+                border-color: #007AFF;
+                
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+                transform: translateY(-3px);
+            }
+
+            /* ------------------------------------------- */
+            /* スタンプラリー UI */
+            /* ------------------------------------------- */
+            .stamp-section-title {
+                font-size: 1.4em;
+                font-weight: 600;
+                margin: 20px 0 10px 0;
+                color: #222222;
+            }
+            .stamp-progress {
+                margin-bottom: 18px;
+                color: #444444;
+                font-size: 0.95em;
+            }
+            .stamp-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                gap: 14px;
+                max-width: 1000px;
+                margin: 0 auto 40px auto;
+            }
+            .stamp-item {
+                background: #F7F8FA;
+                border: 1px solid #E9EBF0;
+                border-radius: 10px;
+                padding: 12px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                min-height: 110px;
+                transition: box-shadow 0.2s ease;
+            }
+            .stamp-item:hover {
+                box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+            }
+            .stamp-circle {
+                width: 56px;
+                height: 56px;
+                border-radius: 50%;
+                border: 2px dashed #B0B8C4;
+                background: #FFFFFF;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 10px;
+                color: #B0B8C4;
+                font-weight: 600;
+                font-size: 0.9em;
+            }
+            .stamp-circle.collected {
+                border: 2px solid #22C55E;
+                background: #E8F9EF;
+                color: #16A34A;
+            }
+            .stamp-label {
+                font-size: 0.95em;
+                color: #333333;
+                font-weight: 500;
+            }
+
+            /* コンプリートバナー */
+            .stamp-complete {
+                display: none;
+                margin: 10px auto 22px auto;
+                max-width: 1000px;
+                background: linear-gradient(90deg, #22C55E, #16A34A);
+                color: #FFFFFF;
+                padding: 14px 18px;
+                border-radius: 10px;
+                font-weight: 700;
+                letter-spacing: 0.3px;
+                box-shadow: 0 8px 20px rgba(22,163,74,0.25);
+            }
+            .stamp-complete.show {
+                display: block;
+                animation: pop 400ms ease;
+            }
+            @keyframes pop {
+                0% { transform: scale(0.96); opacity: 0; }
+                100% { transform: scale(1); opacity: 1; }
+            }
+        </style>
+        <link rel="stylesheet" href="main.css">
     </head>
 
     <body>
         <div class="content-wrapper">
+            <h1>川野邊研究室 // 研究テーマ発表会</h1>
             
             <div id="main-typing-container">
                 <h2 id="main-typing"></h2>
             </div>
-            
-            <div style="margin-top: 10vh;">
 
+            <!-- スタンプラリー表示 -->
+            <div>
+                <div class="stamp-section-title">スタンプラリー</div>
+                <div id="stamp-complete" class="stamp-complete">おめでとうございます！全スタンプをコンプリートしました！</div>
+                <div id="stamp-progress" class="stamp-progress">読込中...</div>
+                <div id="stamp-grid" class="stamp-grid"></div>
+            </div>
+            
+            <div style="margin-top: 50vh;">
                 <div class="theme-links">
                     <a href="pdfjs/web/viewer.html?file=../../pdf/torii.pdf" class="button-link" data-aos="fade-up" data-aos-delay="0">3Dプリンターを用いた<br>フライタイイング技術の開発</a>
                     <a href="pdfjs/web/viewer.html?file=../../pdf/nedu.pdf" class="button-link" data-aos="fade-up" data-aos-delay="100">視覚情報と時間提示の操作による<br>バーチャルリアリティ空間における<br>時空体験の創出</a>
@@ -40,36 +259,13 @@
                     <a href="pdfjs/web/viewer.html?file=../../pdf/aikawa.pdf" class="button-link" data-aos="fade-up" data-aos-delay="2200">テレイグジスタンスによる<br>非同期コミュニケーションの実現</a>
                     <a href="pdfjs/web/viewer.html?file=../../pdf/yamaguchi.pdf" class="button-link" data-aos="fade-up" data-aos-delay="2300">気功の科学的追求</a>
                     <a href="pdfjs/web/viewer.html?file=../../pdf/shimamura.pdf" class="button-link" data-aos="fade-up" data-aos-delay="2400">ブロックチェーン技術を用いた</br>地域医療連携のための</br>電子カルテ共有システムの開発と提案</a>
+                </div>
             </div>
         </div>
 
         <script src="https://unpkg.com/ityped@1.0.0/dist/index.js"></script>
         <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-        <script>
-            window.onload = function() {
-                // iTyped 初期化 (1分間停止設定を含む)
-                const strings = [
-                    "研究テーマを選択してください。\nPlease select a research theme.",
-                ];
-
-                ityped.init(document.querySelector("#main-typing"), {
-                    strings: strings,
-                    loop: true,
-                    typeSpeed: 90,
-                    backSpeed: 40,
-                    backDelay: 60000, // 1分間 (60000ms) 停止
-                    startDelay: 500,
-                    showCursor: true
-                });
-
-                // AOS 初期化
-                AOS.init({
-                    once: true,
-                    easing: 'ease-out-back',
-                    duration: 1000 
-                });
-            }
-        </script>
+        <script src="js/main-init.js"></script>
     </body>
 </html>
