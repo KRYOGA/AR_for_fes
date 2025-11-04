@@ -36,8 +36,8 @@ body {
    タイトル・アニメーション
 ========================================= */
 h1 {
-  font-size: 1.8em;
-  color: #000;
+  font-size: 2.0em;
+  color: #20ee0ef8;
   font-weight: 700;
   letter-spacing: 1px;
   margin: 0 0 10px 0;
@@ -85,6 +85,27 @@ h2 {
   margin: 0 auto;
 }
 
+/* main.html 専用の縦並び */
+.theme-links.main-actions {
+  flex-direction: column;
+  align-items: center;
+}
+
+/* メインアクションの縦積みとキャプション */
+.action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.button-caption {
+  font-size: 1.7em;
+  color: #f6f3f3;
+  font-weight: 1000;
+  margin: 60px 0 6px 0;
+}
+
+
 /* =========================================
    ボタンデザイン
 ========================================= */
@@ -111,7 +132,7 @@ h2 {
   text-decoration: none;
   cursor: pointer;
   font-size: 1em;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.5px;
   line-height: 1.4;
   box-sizing: border-box; /* padding分で幅が崩れないように */
@@ -125,6 +146,17 @@ h2 {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transform: translateY(-3px);
 }
+/* main.html 専用のボタンサイズ設定 */
+.button-link.main-actions {
+  margin: 20px 0 6px 0;
+  box-sizing: content-box;
+  /* 可変長設定 */
+  width: 80%;              /* 基本は画面幅の80% */
+  max-width: 400px;        /* PCでは最大400pxまで */
+  min-width: 280px;        /* スマホでは最低280px確保 */
+  height: auto;            /* 高さをテキスト量に応じて自動調整 */
+  padding: 20px;
+}
 
 /* スタンプラリー UI */
 .stamp-section-title {
@@ -135,8 +167,9 @@ h2 {
 }
 .stamp-progress {
     margin-bottom: 15px;
+    margin-top: 15px;
     color: #08f35a;
-    font-size: 0.95em;
+    font-size: 1.2em;
 }
 .stamp-grid {
     display: grid;
