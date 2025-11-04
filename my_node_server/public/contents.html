@@ -11,71 +11,7 @@
         <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
         <!--検出されたジェスチャーに基づきオブジェクトをコントロール--> 
         <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
-        <script>
-            // 動画の再生/停止をマーカー検出に連動させる
-            AFRAME.registerComponent('videohandler', {
-                init: function () {
-                    var self = this;
-                    var videoEl = document.querySelector('#Vid');
-                    if (!videoEl) {
-                        console.error('Video element #Vid not found');
-                        return;
-                    }
-
-                    // 動画の読み込み完了を待つ
-                    var onLoadedData = function() {
-                        videoEl.muted = true;
-                        videoEl.play().catch(function(err) {
-                            console.log('Video autoplay blocked:', err);
-                        });
-                    };
-
-                    if (videoEl.readyState >= 2) {
-                        // 既に読み込み済み
-                        onLoadedData();
-                    } else {
-                        videoEl.addEventListener('loadeddata', onLoadedData);
-                    }
-
-                    var tryPlay = function () {
-                        if (videoEl.readyState >= 2) {
-                            try {
-                                videoEl.muted = true;
-                                var p = videoEl.play();
-                                if (p && typeof p.catch === 'function') {
-                                    p.catch(function (err) { 
-                                        console.log('Video play failed:', err);
-                                    });
-                                }
-                            } catch (e) { 
-                                console.error('Video play error:', e);
-                            }
-                        }
-                    };
-
-                    this.el.addEventListener('markerFound', function() {
-                        console.log('Marker found, attempting to play video');
-                        tryPlay();
-                    });
-                    this.el.addEventListener('markerLost', function () {
-                        try { 
-                            videoEl.pause(); 
-                            videoEl.currentTime = 0; 
-                        } catch (e) { 
-                            console.error('Video pause error:', e);
-                        }
-                    });
-
-                    var resume = function () { 
-                        tryPlay(); 
-                        window.removeEventListener('touchend', resume); 
-                        window.removeEventListener('click', resume); 
-                    };
-                    window.addEventListener('touchend', resume);
-                    window.addEventListener('click', resume);
-                }
-            });
-        </script>
+        <script src="js/ar-init.js"></script>
     </head>
 
 
