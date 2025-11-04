@@ -93,7 +93,7 @@
     window.onload = function () {
         // iTyped 初期化
         try {
-            var strings = ["// 研究テーマの選択を待機しています。テーマを選択してください。"];
+            var strings = ["研究テーマの選択を待機しています。テーマを選択してください。"];
             if (window.ityped && ityped.init) {
                 ityped.init(document.querySelector('#main-typing'), {
                     strings: strings,
