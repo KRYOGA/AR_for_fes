@@ -241,6 +241,167 @@ h2 {
     100% { transform: scale(1); opacity: 1; }
 }
 
+/* リワードモーダル */
+.reward-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.reward-modal.show {
+    display: flex;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.reward-modal-content {
+    background: #FFFFFF;
+    border-radius: 15px;
+    padding: 0;
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.reward-modal-header {
+    background: linear-gradient(90deg, #22C55E, #16A34A);
+    color: #FFFFFF;
+    padding: 20px;
+    border-radius: 15px 15px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.reward-modal-header h3 {
+    margin: 0;
+    font-size: 1.5em;
+    font-weight: 700;
+}
+
+.reward-close-button {
+    background: none;
+    border: none;
+    color: #FFFFFF;
+    font-size: 2em;
+    cursor: pointer;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.reward-close-button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.reward-modal-body {
+    padding: 30px;
+    text-align: center;
+}
+
+.reward-modal-body p {
+    font-size: 1.2em;
+    color: #333333;
+    margin-bottom: 25px;
+}
+
+.reward-modal-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.reward-button {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 100px;
+}
+
+.reward-button-yes {
+    background-color: #22C55E;
+    color: #FFFFFF;
+}
+
+.reward-button-yes:hover {
+    background-color: #16A34A;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
+}
+
+.reward-button-no {
+    background-color: #E5E7EB;
+    color: #333333;
+}
+
+.reward-button-no:hover {
+    background-color: #D1D5DB;
+    transform: translateY(-2px);
+}
+
+.reward-button-download {
+    background-color: #3B82F6;
+    color: #FFFFFF;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.reward-button-download:hover {
+    background-color: #2563EB;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+.image-modal-content {
+    max-width: 600px;
+}
+
+.image-modal-body {
+    padding: 20px;
+}
+
+.reward-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+}
+
 /* スマホ（600px以下）専用の最適化 */
 @media (max-width: 600px) {
   .button-link {
@@ -248,5 +409,35 @@ h2 {
     padding: 15px;
     width: 90%;       /* 画面幅に合わせて広めに */
     min-width: unset; /* 幅の下限を解除して自然に縮む */
+  }
+
+  .reward-modal-content {
+    width: 95%;
+    max-width: 95%;
+  }
+
+  .reward-modal-header h3 {
+    font-size: 1.2em;
+  }
+
+  .reward-modal-body {
+    padding: 20px;
+  }
+
+  .reward-modal-body p {
+    font-size: 1.1em;
+  }
+
+  .reward-modal-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .reward-button {
+    width: 100%;
+  }
+
+  .reward-image {
+    max-width: 100%;
   }
 }

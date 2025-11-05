@@ -2,6 +2,7 @@
 (function(){
     var STORAGE_KEY = 'arStampProgress';
     var COMPLETE_FLAG_KEY = 'arStampCompletedShown';
+    var REWARD_MODAL_SHOWN_KEY = 'arRewardModalShown';
 
     function loadProgress() {
         try {
@@ -14,6 +15,98 @@
             return data;
         } catch (e) {
             return { ids: {}, count: 0 };
+        }
+    }
+
+    function showRewardModal() {
+        var modal = document.getElementById('reward-modal');
+        if (modal) {
+            modal.classList.add('show');
+        }
+    }
+
+    function hideRewardModal() {
+        var modal = document.getElementById('reward-modal');
+        if (modal) {
+            modal.classList.remove('show');
+        }
+    }
+
+    function showImageModal() {
+        var modal = document.getElementById('image-modal');
+        if (modal) {
+            modal.classList.add('show');
+        }
+    }
+
+    function hideImageModal() {
+        var modal = document.getElementById('image-modal');
+        if (modal) {
+            modal.classList.remove('show');
+        }
+    }
+
+    function downloadImage() {
+        var img = document.getElementById('reward-image');
+        if (!img) return;
+        
+        var link = document.createElement('a');
+        link.href = img.src;
+        link.download = 'kawanobe.jpeg';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+    function initRewardModal() {
+        var rewardYesBtn = document.getElementById('reward-yes');
+        var rewardNoBtn = document.getElementById('reward-no');
+        var closeImageBtn = document.getElementById('close-image-modal');
+        var downloadBtn = document.getElementById('download-image');
+
+        if (rewardYesBtn) {
+            rewardYesBtn.addEventListener('click', function() {
+                hideRewardModal();
+                showImageModal();
+            });
+        }
+
+        if (rewardNoBtn) {
+            rewardNoBtn.addEventListener('click', function() {
+                hideRewardModal();
+            });
+        }
+
+        if (closeImageBtn) {
+            closeImageBtn.addEventListener('click', function() {
+                hideImageModal();
+            });
+        }
+
+        if (downloadBtn) {
+            downloadBtn.addEventListener('click', function() {
+                downloadImage();
+            });
+        }
+
+        // モーダル外をクリックしたら閉じる
+        var rewardModal = document.getElementById('reward-modal');
+        var imageModal = document.getElementById('image-modal');
+        
+        if (rewardModal) {
+            rewardModal.addEventListener('click', function(e) {
+                if (e.target === rewardModal) {
+                    hideRewardModal();
+                }
+            });
+        }
+
+        if (imageModal) {
+            imageModal.addEventListener('click', function(e) {
+                if (e.target === imageModal) {
+                    hideImageModal();
+                }
+            });
         }
     }
 
@@ -63,6 +156,14 @@
                     if (!shown) {
                         localStorage.setItem(COMPLETE_FLAG_KEY, '1');
                         setTimeout(function(){ alert('コンプリート達成！おめでとうございます！'); }, 100);
+                    }
+                    // リワードモーダルを表示（一度だけ）
+                    var rewardShown = localStorage.getItem(REWARD_MODAL_SHOWN_KEY);
+                    if (!rewardShown) {
+                        setTimeout(function() {
+                            showRewardModal();
+                            localStorage.setItem(REWARD_MODAL_SHOWN_KEY, '1');
+                        }, 500);
                     }
                 } catch (e) {}
             } else {
@@ -120,6 +221,9 @@
 
         // スタンプUI描画
         renderStampUI();
+        
+        // リワードモーダル初期化
+        initRewardModal();
     };
 })();
 

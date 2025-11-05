@@ -9,12 +9,42 @@
 
     <body>
         <div class="content-wrapper">
-            <h2>全てのスタンプを集めると何か起こるかも…？</h2>
+            <h2>全てのスタンプを集めると<br>何か起こるかも…？</h2>
             <!-- スタンプラリー表示 -->
             <div>
-                <div id="stamp-complete" class="stamp-complete">おめでとうございます！全スタンプをコンプリートしました！</div>
+                <div id="stamp-complete" class="stamp-complete">おめでとうございます！<br>全スタンプをコンプリートしました！</div>
                 <div id="stamp-progress" class="stamp-progress">読込中...</div>
                 <div id="stamp-grid" class="stamp-grid"></div>
+            </div>
+
+            <!-- 画像受け取り確認モーダル -->
+            <div id="reward-modal" class="reward-modal">
+                <div class="reward-modal-content">
+                    <div class="reward-modal-header">
+                        <h3>コンプリート特典</h3>
+                    </div>
+                    <div class="reward-modal-body">
+                        <p>Kawanobe lab20周年記念の特典画像を受け取りますか？</p>
+                        <div class="reward-modal-buttons">
+                            <button id="reward-yes" class="reward-button reward-button-yes">はい</button>
+                            <button id="reward-no" class="reward-button reward-button-no">いいえ</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 画像表示モーダル -->
+            <div id="image-modal" class="reward-modal">
+                <div class="reward-modal-content image-modal-content">
+                    <div class="reward-modal-header">
+                        <h3>特典画像</h3>
+                        <button id="close-image-modal" class="reward-close-button">&times;</button>
+                    </div>
+                    <div class="reward-modal-body image-modal-body">
+                        <img id="reward-image" src="kawanobe.jpeg" alt="特典画像" class="reward-image">
+                        <button id="download-image" class="reward-button reward-button-download">画像をダウンロード</button>
+                    </div>
+                </div>
             </div>
 
             <script src="js/main-init.js"></script>
