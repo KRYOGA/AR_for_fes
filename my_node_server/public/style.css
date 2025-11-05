@@ -51,6 +51,15 @@ h2 {
   display: inline;
 }
 
+p{
+  font-size: 1.0em;
+  color: #f6f3f3;
+  font-weight: 400;
+  margin: 0;
+  display: inline;
+}
+
+
 /* iTypedカーソル */
 .ityped-cursor {
   font-size: 1.5em;
