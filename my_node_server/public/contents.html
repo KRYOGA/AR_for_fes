@@ -145,6 +145,8 @@
                 emitevents="true"
                 cursor="fuse: false; rayOrigin: mouse;"
             >
+                <a-entity light="type ambient: color: #CCC"></a-entity>
+
                 <a-entity
                     id="iwataMarker"
                     scale="1 1 1"
@@ -152,6 +154,8 @@
                     gltf-model="#iwata"
                     class="clickable"
                     gesture-handler="rotationFactor: 5; minScale: 0.5; maxScale: 2"
+                    rotation="-90 0 0" 
+                    
             ></a-entity>
             </a-marker>
 
