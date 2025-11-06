@@ -5,9 +5,105 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- スマホ対応 -->
         <title>研究テーマアーカイブ</title>
         <link rel="stylesheet" href="style.css">
+        <style>
+            /* 画面遷移トランジション用スタイル */
+            .page-transition {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: #000;
+                z-index: 9999;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .page-transition.active {
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            .page-transition-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                transform: scaleX(0);
+                transform-origin: left;
+                transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .page-transition.active .page-transition-overlay {
+                transform: scaleX(1);
+            }
+
+            .transition-progress {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 3px;
+                background: #fff;
+                width: 0%;
+                transition: width 0.3s ease;
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            }
+
+            /* ページロード時のフェードイン */
+            .content-wrapper {
+                opacity: 0;
+                animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards;
+            }
+
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            /* ボタンリンクのホバー強化 */
+            .button-link {
+                position: relative;
+                overflow: hidden;
+            }
+
+            .button-link::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+                transition: left 0.5s;
+            }
+
+            .button-link:hover::before {
+                left: 100%;
+            }
+
+            /* スムーズなスクロール */
+            html {
+                scroll-behavior: smooth;
+            }
+        </style>
     </head>
 
     <body>
+        <!-- 画面遷移トランジション要素 -->
+        <div class="page-transition" id="page-transition">
+            <div class="transition-progress" id="transition-progress"></div>
+            <div class="page-transition-overlay"></div>
+        </div>
+
         <div class="content-wrapper">
             <h1>2025年度研究テーマ</h1>
             
@@ -46,5 +142,50 @@
         </div>
         <script src="https://unpkg.com/ityped@1.0.0/dist/index.js"></script>
         <script src="js/main-init.js"></script>
+        <script>
+            // 画面遷移トランジション機能
+            (function() {
+                const transition = document.getElementById('page-transition');
+                const progress = document.getElementById('transition-progress');
+                const links = document.querySelectorAll('.button-link');
+
+                function handleTransition(e) {
+                    e.preventDefault();
+                    const targetUrl = e.currentTarget.getAttribute('href');
+
+                    // トランジション開始
+                    transition.classList.add('active');
+                    
+                    // プログレスバーアニメーション
+                    let progressValue = 0;
+                    const progressInterval = setInterval(() => {
+                        progressValue += 10;
+                        progress.style.width = progressValue + '%';
+                        
+                        if (progressValue >= 100) {
+                            clearInterval(progressInterval);
+                            // 遷移実行
+                            setTimeout(() => {
+                                window.location.href = targetUrl;
+                            }, 100);
+                        }
+                    }, 30);
+                }
+
+                // 各リンクにイベントリスナーを追加
+                links.forEach(link => {
+                    link.addEventListener('click', handleTransition);
+                });
+
+                // ページロード時のフェードイン処理
+                window.addEventListener('load', function() {
+                    // 既にロード済みの場合は何もしない
+                    if (sessionStorage.getItem('pageLoaded')) {
+                        return;
+                    }
+                    sessionStorage.setItem('pageLoaded', 'true');
+                });
+            })();
+        </script>
     </body>
 </html>
