@@ -29,12 +29,13 @@
         >
 
             <!--a-assets：３Dオブジェクトのためのタグ
-                対象者：相川，森田, 佐久間, 鳥居-->
+                対象者：相川，森田, 佐久間, 鳥居,岩田-->
             <a-assets>
                 <a-asset-item id="morita" src="assets/morita/morita.gltf"></a-asset-item>
                 <a-asset-item id="aikawa" src="assets/aikawa/aikawa.gltf"></a-asset-item>
                 <a-asset-item id="sakuma" src="assets/sakuma/sakuma.gltf"></a-asset-item>
                 <a-asset-item id="torii" src="assets/torii/torii.glb"></a-asset-item>
+                <a-asset-item id="iwata" src="assets/iwata/iwata.glb"></a-asset-item>
             <!--a-assets：MP4コンテンツのためのタグ
                 対象者：佐藤-->     <!--TODO：動作しない，黒澤さん頼んだ　line448〜-->
                 <video
@@ -144,15 +145,14 @@
                 emitevents="true"
                 cursor="fuse: false; rayOrigin: mouse;"
             >
-                <a-image
-                    src="assets/iwata/iwata.png"
-                    width="1"
-                    height="1"
-                    rotation="-90 0 0"  
-                    position="0 0 0"
+                <a-entity
+                    id="iwataMarker"
+                    scale="1 1 1"
+                    animation-mixer="loop: repeat"
+                    gltf-model="#iwata"
                     class="clickable"
-                    gesture-handler="rotationFactor: 0; minScale: 0.5; maxScale: 5"
-                ></a-image>
+                    gesture-handler="rotationFactor: 5; minScale: 0.5; maxScale: 2"
+            ></a-entity>
             </a-marker>
 
             <!-- 小林専用 -->
