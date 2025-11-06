@@ -8,8 +8,25 @@
     </head>
 
     <body>
+        <canvas id="bg-canvas" class="bg-canvas" aria-hidden="true"></canvas>
         <div class="content-wrapper">
-            <h2>全てのスタンプを集めると<br>何か起こるかも…？</h2>
+            <div class="stamp-hero" aria-hidden="true">
+                <div class="stamp-hero-title">
+                    <span class="sparkle-left">★</span>
+                    スタンプラリー
+                    <span class="sparkle-right">✦</span>
+                </div>
+                <div class="floating-shapes">
+                    <span class="shape s1"></span>
+                    <span class="shape s2"></span>
+                    <span class="shape s3"></span>
+                    <span class="shape s4"></span>
+                    <span class="shape s5"></span>
+                </div>
+                <p class="stamp-hero-sub">全てのスタンプを集めると特別なご褒美が…！</p>
+            </div>
+
+          
             <div class="action" style="margin-bottom: 1em;">
                 <a href="contents.html" class="button-link">ARの世界へ</a>
             </div>
@@ -17,6 +34,9 @@
             <div>
                 <div id="stamp-complete" class="stamp-complete">おめでとうございます！<br>全スタンプをコンプリートしました！</div>
                 <div id="stamp-progress" class="stamp-progress">読込中...</div>
+                <div class="progress-wrap" aria-hidden="true">
+                    <div id="stamp-progressbar" class="progress-bar" style="width:0%"></div>
+                </div>
                 <div id="stamp-grid" class="stamp-grid"></div>
             </div>
 
@@ -50,6 +70,7 @@
                 </div>
             </div>
 
+            <div id="confetti" class="confetti-container" aria-hidden="true"></div>
             <script src="js/main-init.js"></script>
         </div>
     </body>
