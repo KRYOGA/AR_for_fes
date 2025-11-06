@@ -27,7 +27,18 @@
             embedded
             gesture-detector
         >
+            <!--lighting-->>
+            <!-- 全体を明るくする環境光 -->
+            <a-light type="ambient" color="#ffffff" intensity="2.5"></a-light>
 
+            <!-- 特定方向から光を当てるライト（やや白め） -->
+            <a-light type="directional" color="#ffffff" position="0 1 1" intensity="2.5"></a-light>
+            <a-light type="directional" color="#ffffff" position="-1 1 -1" intensity="2.5"></a-light>
+            <a-light type="directional" color="#ffffff" position="1 0 1" intensity="2.5"></a-light>
+
+
+            
+            
             <!--a-assets：３Dオブジェクトのためのタグ
                 対象者：相川，森田, 佐久間, 鳥居,岩田-->
             <a-assets>
@@ -152,11 +163,11 @@
                     scale="1 1 1"
                     animation-mixer="loop: repeat"
                     gltf-model="#iwata"
+                    material="shader: standard"
                     class="clickable"
                     gesture-handler="rotationFactor: 5; minScale: 0.5; maxScale: 2"
-                    rotation="-90 0 0" 
-                    
-            ></a-entity>
+                    rotation="-90 0 0">
+            </a-entity>
             </a-marker>
 
             <!-- 小林専用 -->
@@ -449,6 +460,7 @@
                     gltf-model="#sakuma"
                     class="clickable"
                     gesture-handler="rotationFactor: 0; minScale: 0.5; maxScale: 3"
+                    rotation="-90 0 0"
             ></a-entity>
             </a-marker>
 
