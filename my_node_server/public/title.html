@@ -1,111 +1,191 @@
 <!doctype html lang="ja">
-<html lang="ja">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>研究テーマアーカイブ</title>
-    <link rel="stylesheet" href="style.css">
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- スマホ対応 -->
+        <title>研究テーマアーカイブ</title>
+        <link rel="stylesheet" href="style.css">
+        <style>
+            /* 画面遷移トランジション用スタイル */
+            .page-transition {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: #000;
+                z-index: 9999;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            }
 
-  </head>
+            .page-transition.active {
+                opacity: 1;
+                pointer-events: all;
+            }
 
-  <body>
-    <div class="content-wrapper">
-      <h1>2025年度研究テーマ</h1>
-      <div id="main-typing-container">
-        <p id="main-typing"></p>
-      </div>
+            .page-transition-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                transform: scaleX(0);
+                transform-origin: left;
+                transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            }
 
-      <div class="theme-links">
-        <a href="pdfjs/web/viewer.html?file=../../pdf/torii.pdf" class="theme-card"><div class="cube-container" data-color="#4ea8de"></div>3Dプリンターを用いた<br>フライタイイング技術の開発</a>
-        <a href="pdfjs/web/viewer.html?file=../../pdf/nedu.pdf" class="theme-card"><div class="cube-container" data-color="#ff9f1c"></div>視覚情報と時間提示の操作による<br>バーチャルリアリティ空間における<br>時空体験の創出</a>
-        <a href="pdfjs/web/viewer.html?file=../../pdf/nishino.pdf" class="theme-card"><div class="cube-container" data-color="#9b5de5"></div>VR環境におけるUI/UXによるVR酔いの軽減</a>
-        <a href="pdfjs/web/viewer.html?file=../../pdf/satou.pdf" class="theme-card"><div class="cube-container" data-color="#00bbf9"></div>ARを用いて身近な物の英単語を表示する<br>英語学習支援システムの開発</a>
-        <a href="pdfjs/web/viewer.html?file=../../pdf/onigata.pdf" class="theme-card"><div class="cube-container" data-color="#f15bb5"></div>FPSにおける人間らしい振る舞いを行う<br>ゲームAIの開発</a>
-        <a href="pdfjs/web/viewer.html?file=../../pdf/nogawa.pdf" class="theme-card"><div class="cube-container" data-color="#fee440"></div>複雑な表情を生成可能なAIの開発</a>
-        <a href="pdfjs/web/viewer.html?file=../../pdf/naruse.pdf" class="theme-card"><div class="cube-container" data-color="#ff6b6b"></div>生成AIを用いた<br>リアルな人物の創出とプロデュース</a>
-        <a href="pdfjs/web/viewer.html?file=../../pdf/ikeuchi.pdf" class="theme-card"><div class="cube-container" data-color="#4cc9f0"></div>ビデオ通話における<br>感情推定による不安感の軽減</a>
-        <a href="pdfjs/web/viewer.html?file=../../pdf/kurosawa.pdf" class="theme-card"><div class="cube-container" data-color="#3a86ff"></div>ミーティングにおける<br>時間経過と感情変化の関係</a>
-        <a href="pdfjs/web/viewer.html?file=../../pdf/miura.pdf" class="theme-card"><div class="cube-container" data-color="#5f0f40"></div>マーケットニーズに応える服飾デザインの模索</a>
-        <a href="pdfjs/web/viewer.html?file=../../pdf/kuma.pdf" class="theme-card"><div class="cube-container" data-color="#ff8fab"></div>エンタテイメント業界で求められる<br>リーダーシップとフォロワーシップの在り方</a>
-        <a href="pdfjs/web/viewer.html?file=../../pdf/iwata.pdf" class="theme-card"><div class="cube-container" data-color="#ffd60a"></div>観光閑散期に挑む<br>～江間いちごの夏季プロモーション実践報告～</a>
-        <a href="pdfjs/web/viewer.html?file=../../pdf/asakawa.pdf" class="theme-card"><div class="cube-container" data-color="#00f5d4"></div>横浜市における<br>公共交通空白地帯の予測モデルの構築</a>
-        <a href="pdfjs/web/viewer.html?file=../../pdf/moriya.pdf" class="theme-card"><div class="cube-container" data-color="#7b2cbf"></div>映像制作における<br>一連の工程を通したスキル修得</a>
-        <a href="pdfjs/web/viewer.html?file=../../pdf/motone.pdf" class="theme-card"><div class="cube-container" data-color="#00bbf9"></div>プロの歌手になるための活動</a>
-        <a href="pdfjs/web/viewer.html?file=../../pdf/oikawa.pdf" class="theme-card"><div class="cube-container" data-color="#b5179e"></div>果物アレルギーを抱える人のための<br>疑似味覚提示システムの開発</a>
-        <a href="pdfjs/web/viewer.html?file=../../pdf/owari.pdf" class="theme-card"><div class="cube-container" data-color="#2ec4b6"></div>色弱者(色覚特性のある人)に向けた<br>色覚補助による鮮魚判別システムの開発</a>
-        <a href="pdfjs/web/viewer.html?file=../../pdf/kobayashi.pdf" class="theme-card"><div class="cube-container" data-color="#f72585"></div>写真を見た際の鑑賞者の<br>言語化できない感情の変化と<br>バイタルデータとの関係</a>
-        <a href="pdfjs/web/viewer.html?file=../../pdf/sakuma.pdf" class="theme-card"><div class="cube-container" data-color="#4361ee"></div>ゲームプレイ情報に基づきレコメンドを行う<br>スマートゲーミングディスプレイの開発</a>
-        <a href="pdfjs/web/viewer.html?file=../../pdf/toyama.pdf" class="theme-card"><div class="cube-container" data-color="#06d6a0"></div>身体接触により人間のストレスを<br>軽減させる癒しロボットの開発</a>
-        <a href="pdfjs/web/viewer.html?file=../../pdf/morita.pdf" class="theme-card"><div class="cube-container" data-color="#ff006e"></div>ブランドとブランドプレイリストの<br>感情的一致制に関する実証分析</a>
-        <a href="pdfjs/web/viewer.html?file=../../pdf/aikawa.pdf" class="theme-card"><div class="cube-container" data-color="#118ab2"></div>テレイグジスタンスによる<br>非同期コミュニケーションの実現</a>
-        <a href="pdfjs/web/viewer.html?file=../../pdf/yamaguchi.pdf" class="theme-card"><div class="cube-container" data-color="#ef476f"></div>気功の科学的追求</a>
-        <a href="pdfjs/web/viewer.html?file=../../pdf/shimamura.pdf" class="theme-card"><div class="cube-container" data-color="#8338ec"></div>ブロックチェーン技術を用いた<br>地域医療連携のための<br>電子カルテ共有システムの開発と提案</a>
-      </div>
-    </div>
+            .page-transition.active .page-transition-overlay {
+                transform: scaleX(1);
+            }
 
-    <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
-    <script src="https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"></script>
-    <script src="https://unpkg.com/ityped@1.0.0/dist/index.js"></script>
+            .transition-progress {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 3px;
+                background: #fff;
+                width: 0%;
+                transition: width 0.3s ease;
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            }
 
-    <script>
-      // ===== タイピングアニメーション =====
-      ityped.init('#main-typing', {
-        strings: ['研究を未来へ残すデジタルアーカイブ', '技術と想いの軌跡'],
-        loop: true,
-        typeSpeed: 80,
-        backSpeed: 50,
-        startDelay: 400,
-      });
-      // ===== Three.js Cube生成（安定版）=====
-      document.querySelectorAll('.cube-container').forEach((container) => {
-        
-        const fixedSize = 80; // CSSで指定した固定サイズ
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(70, fixedSize / fixedSize, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-        
-        // 固定値でサイズを初期化
-        renderer.setSize(fixedSize, fixedSize);
+            /* ページロード時のフェードイン */
+            .content-wrapper {
+                opacity: 0;
+                animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards;
+            }
 
-        container.innerHTML = ""; // canvas重複防止
-        container.appendChild(renderer.domElement);
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
 
-        const color = container.dataset.color || '#4ea8de';
-        const geometry = new THREE.BoxGeometry(1, 1, 1);
-        const material = new THREE.MeshStandardMaterial({ color, metalness: 0.5, roughness: 0.4 });
-        const cube = new THREE.Mesh(geometry, material);
-        scene.add(cube);
+            /* ボタンリンクのホバー強化 */
+            .button-link {
+                position: relative;
+                overflow: hidden;
+            }
 
-        const light1 = new THREE.PointLight(0xffffff, 1.2);
-        light1.position.set(3, 3, 3);
-        const ambient = new THREE.AmbientLight(0xffffff, 0.3);
-        scene.add(light1, ambient);
+            .button-link::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+                transition: left 0.5s;
+            }
 
-        camera.position.z = 2.5;
+            .button-link:hover::before {
+                left: 100%;
+            }
 
-        function animate() {
-          requestAnimationFrame(animate);
-          cube.rotation.x += 0.01;
-          cube.rotation.y += 0.015;
-          renderer.render(scene, camera);
-        }
-        animate();
+            /* スムーズなスクロール */
+            html {
+                scroll-behavior: smooth;
+            }
+        </style>
+    </head>
 
-        // ホバーでゆっくり回転
-        container.parentElement.addEventListener('mouseenter', () => {
-          gsap.to(cube.rotation, { y: cube.rotation.y + Math.PI, duration: 2, ease: "power2.inOut" });
-        });
+    <body>
+        <!-- 画面遷移トランジション要素 -->
+        <div class="page-transition" id="page-transition">
+            <div class="transition-progress" id="transition-progress"></div>
+            <div class="page-transition-overlay"></div>
+        </div>
 
-        // リサイズ時に自動調整
-        window.addEventListener('resize', () => {
-          const size = container.getBoundingClientRect();
-          if (size.width > 0 && size.height > 0) {
-            renderer.setSize(size.width, size.height);
-            camera.aspect = size.width / size.height;
-            camera.updateProjectionMatrix();
-          }
-        });
-      });
-    </script>
-  </body>
+        <div class="content-wrapper">
+            <h1>2025年度研究テーマ</h1>
+            
+            <div id="main-typing-container">
+                <p id="main-typing"></p>
+            </div>
+            
+            <div style="margin-top: 10vh;">
+                <div class="theme-links">
+                    <a href="pdfjs/web/viewer.html?file=../../pdf/torii.pdf" class="button-link" data-aos="fade-up" data-aos-delay="0">3Dプリンターを用いた<br>フライタイイング技術の開発</a>
+                    <a href="pdfjs/web/viewer.html?file=../../pdf/nedu.pdf" class="button-link" data-aos="fade-up" data-aos-delay="100">視覚情報と時間提示の操作による<br>バーチャルリアリティ空間における<br>時空体験の創出</a>
+                    <a href="pdfjs/web/viewer.html?file=../../pdf/nishino.pdf" class="button-link" data-aos="fade-up" data-aos-delay="200">VR環境におけるUI/UXによるVR酔いの軽減</a>
+                    <a href="pdfjs/web/viewer.html?file=../../pdf/satou.pdf" class="button-link" data-aos="fade-up" data-aos-delay="300">ARを用いて身近な物の英単語を表示する<br>英語学習支援システムの開発</a>
+                    <a href="pdfjs/web/viewer.html?file=../../pdf/onigata.pdf" class="button-link" data-aos="fade-up" data-aos-delay="400">FPSにおける人間らしい振る舞いを行う<br>ゲームAIの開発</a>
+                    <a href="pdfjs/web/viewer.html?file=../../pdf/nogawa.pdf" class="button-link" data-aos="fade-up" data-aos-delay="500">複雑な表情を生成可能なAIの開発</a>
+                    <a href="pdfjs/web/viewer.html?file=../../pdf/naruse.pdf" class="button-link" data-aos="fade-up" data-aos-delay="600">生成AIを用いた<br>リアルな人物の創出とプロデュース</a>
+                    <a href="pdfjs/web/viewer.html?file=../../pdf/ikeuchi.pdf" class="button-link" data-aos="fade-up" data-aos-delay="700">ビデオ通話における<br>感情推定による不安感の軽減</a>
+                    <a href="pdfjs/web/viewer.html?file=../../pdf/kurosawa.pdf" class="button-link" data-aos="fade-up" data-aos-delay="800">ミーティングにおける<br>時間経過と感情変化の関係</a>
+                    <a href="pdfjs/web/viewer.html?file=../../pdf/miura.pdf" class="button-link" data-aos="fade-up" data-aos-delay="900">マーケットニーズに応える服飾デザインの模索</a>
+                    <a href="pdfjs/web/viewer.html?file=../../pdf/kuma.pdf" class="button-link" data-aos="fade-up" data-aos-delay="1000">エンタテイメント業界で求められる<br>リーダーシップとフォロワーシップの在り方</a>
+                    <a href="pdfjs/web/viewer.html?file=../../pdf/iwata.pdf" class="button-link" data-aos="fade-up" data-aos-delay="1200">観光閑散期に挑む<br>～江間いちごの夏季プロモーション実践報告～</a>
+                    <a href="pdfjs/web/viewer.html?file=../../pdf/asakawa.pdf" class="button-link" data-aos="fade-up" data-aos-delay="1300">横浜市における<br>公共交通空白地帯の予測モデルの構築</a>
+                    <a href="pdfjs/web/viewer.html?file=../../pdf/moriya.pdf" class="button-link" data-aos="fade-up" data-aos-delay="1400">映像制作における<br>一連の工程を通したスキル修得</a>
+                    <a href="pdfjs/web/viewer.html?file=../../pdf/motone.pdf" class="button-link" data-aos="fade-up" data-aos-delay="1500">プロの歌手になるための活動</a>
+                    <a href="pdfjs/web/viewer.html?file=../../pdf/oikawa.pdf" class="button-link" data-aos="fade-up" data-aos-delay="1600">果物アレルギーを抱える人のための<br>疑似味覚提示システムの開発</a>
+                    <a href="pdfjs/web/viewer.html?file=../../pdf/owari.pdf" class="button-link" data-aos="fade-up" data-aos-delay="1700">色弱者(色覚特性のある人)に向けた<br>色覚補助による鮮魚判別システムの開発</a>
+                    <a href="pdfjs/web/viewer.html?file=../../pdf/kobayashi.pdf" class="button-link" data-aos="fade-up" data-aos-delay="1800">写真を見た際の鑑賞者の<br>言語化できない感情の変化と<br>バイタルデータとの関係</a>
+                    <a href="pdfjs/web/viewer.html?file=../../pdf/sakuma.pdf" class="button-link" data-aos="fade-up" data-aos-delay="1900">ゲームプレイ情報に基づきレコメンドを行う<br>スマートゲーミングディスプレイの開発</a>
+                    <a href="pdfjs/web/viewer.html?file=../../pdf/toyama.pdf" class="button-link" data-aos="fade-up" data-aos-delay="2000">身体接触により人間のストレスを<br>軽減させる癒しロボットの開発</a>
+                    <a href="pdfjs/web/viewer.html?file=../../pdf/morita.pdf" class="button-link" data-aos="fade-up" data-aos-delay="2100">ブランドとブランドプレイリストの<br>感情的一致制に関する実証分析</a>
+                    <a href="pdfjs/web/viewer.html?file=../../pdf/aikawa.pdf" class="button-link" data-aos="fade-up" data-aos-delay="2200">テレイグジスタンスによる<br>非同期コミュニケーションの実現</a>
+                    <a href="pdfjs/web/viewer.html?file=../../pdf/yamaguchi.pdf" class="button-link" data-aos="fade-up" data-aos-delay="2300">気功の科学的追求</a>
+                    <a href="pdfjs/web/viewer.html?file=../../pdf/shimamura.pdf" class="button-link" data-aos="fade-up" data-aos-delay="2400">ブロックチェーン技術を用いた<br>地域医療連携のための<br>電子カルテ共有システムの開発と提案</a>
+                </div>
+            </div>
+        </div>
+        <script src="https://unpkg.com/ityped@1.0.0/dist/index.js"></script>
+        <script src="js/main-init.js"></script>
+        <script>
+            // 画面遷移トランジション機能
+            (function() {
+                const transition = document.getElementById('page-transition');
+                const progress = document.getElementById('transition-progress');
+                const links = document.querySelectorAll('.button-link');
+
+                function handleTransition(e) {
+                    e.preventDefault();
+                    const targetUrl = e.currentTarget.getAttribute('href');
+
+                    // トランジション開始
+                    transition.classList.add('active');
+                    
+                    // プログレスバーアニメーション
+                    let progressValue = 0;
+                    const progressInterval = setInterval(() => {
+                        progressValue += 10;
+                        progress.style.width = progressValue + '%';
+                        
+                        if (progressValue >= 100) {
+                            clearInterval(progressInterval);
+                            // 遷移実行
+                            setTimeout(() => {
+                                window.location.href = targetUrl;
+                            }, 100);
+                        }
+                    }, 30);
+                }
+
+                // 各リンクにイベントリスナーを追加
+                links.forEach(link => {
+                    link.addEventListener('click', handleTransition);
+                });
+
+                // ページロード時のフェードイン処理
+                window.addEventListener('load', function() {
+                    // 既にロード済みの場合は何もしない
+                    if (sessionStorage.getItem('pageLoaded')) {
+                        return;
+                    }
+                    sessionStorage.setItem('pageLoaded', 'true');
+                });
+            })();
+        </script>
+    </body>
 </html>
