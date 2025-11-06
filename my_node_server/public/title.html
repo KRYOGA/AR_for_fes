@@ -1,191 +1,148 @@
-<!doctype html lang="ja">
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- スマホ対応 -->
-        <title>研究テーマアーカイブ</title>
-        <link rel="stylesheet" href="style.css">
-        <style>
-            /* 画面遷移トランジション用スタイル */
-            .page-transition {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: #000;
-                z-index: 9999;
-                opacity: 0;
-                pointer-events: none;
-                transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            }
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>PDF Cube Gallery</title>
+  <style>
+    body, html {
+      margin: 0;
+      height: 100%;
+      background: #111;
+      color: white;
+      overflow: hidden;
+      font-family: "Segoe UI", sans-serif;
+    }
+    #canvas-container {
+      width: 100vw;
+      height: 100vh;
+    }
+    #pdf-viewer-modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+    }
+    #pdf-canvas {
+      border: 1px solid #fff;
+      max-width: 90%;
+      max-height: 90%;
+      box-shadow: 0 0 20px rgba(255,255,255,0.3);
+    }
+    #close-button {
+      position: absolute;
+      top: 10px; right: 10px;
+      color: #fff;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div id="canvas-container"></div>
 
-            .page-transition.active {
-                opacity: 1;
-                pointer-events: all;
-            }
+  <div id="pdf-viewer-modal">
+    <button id="close-button">× Close</button>
+    <canvas id="pdf-canvas"></canvas>
+  </div>
 
-            .page-transition-overlay {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                transform: scaleX(0);
-                transform-origin: left;
-                transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            }
+  <script src="https://unpkg.com/three@0.158.0/build/three.min.js"></script>
+  <script src="https://unpkg.com/gsap@3.12.2/dist/gsap.min.js"></script>
+  <script src="https://unpkg.com/pdfjs-dist@3.6.141/build/pdf.min.js"></script>
 
-            .page-transition.active .page-transition-overlay {
-                transform: scaleX(1);
-            }
+  <script>
+    const container = document.getElementById('canvas-container');
+    const modal = document.getElementById('pdf-viewer-modal');
+    const closeBtn = document.getElementById('close-button');
+    const pdfCanvas = document.getElementById('pdf-canvas');
 
-            .transition-progress {
-                position: absolute;
-                top: 0;
-                left: 0;
-                height: 3px;
-                background: #fff;
-                width: 0%;
-                transition: width 0.3s ease;
-                box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-            }
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    container.appendChild(renderer.domElement);
 
-            /* ページロード時のフェードイン */
-            .content-wrapper {
-                opacity: 0;
-                animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards;
-            }
+    const light = new THREE.DirectionalLight(0xffffff, 1);
+    light.position.set(5, 10, 10);
+    scene.add(light);
 
-            @keyframes fadeInUp {
-                from {
-                    opacity: 0;
-                    transform: translateY(30px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
+    const pdfFiles = Array.from({ length: 24 }, (_, i) => `/pdfs/pdf${String(i + 1).padStart(2, "0")}.pdf`);
 
-            /* ボタンリンクのホバー強化 */
-            .button-link {
-                position: relative;
-                overflow: hidden;
-            }
+    // Cube作成
+    const cubes = [];
+    const spacing = 3;
+    const rows = 4, cols = 6;
+    const geometry = new THREE.BoxGeometry(1, 1, 1);
+    const material = new THREE.MeshStandardMaterial({ color: 0x66ccff });
 
-            .button-link::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: -100%;
-                width: 100%;
-                height: 100%;
-                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-                transition: left 0.5s;
-            }
+    for (let i = 0; i < pdfFiles.length; i++) {
+      const cube = new THREE.Mesh(geometry, material.clone());
+      cube.position.x = (i % cols - cols / 2) * spacing;
+      cube.position.y = (Math.floor(i / cols) - rows / 2) * -spacing;
+      cube.userData.pdf = pdfFiles[i];
+      scene.add(cube);
+      cubes.push(cube);
+    }
 
-            .button-link:hover::before {
-                left: 100%;
-            }
+    camera.position.z = 15;
 
-            /* スムーズなスクロール */
-            html {
-                scroll-behavior: smooth;
-            }
-        </style>
-    </head>
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
 
-    <body>
-        <!-- 画面遷移トランジション要素 -->
-        <div class="page-transition" id="page-transition">
-            <div class="transition-progress" id="transition-progress"></div>
-            <div class="page-transition-overlay"></div>
-        </div>
+    function animate() {
+      requestAnimationFrame(animate);
+      cubes.forEach(c => {
+        c.rotation.x += 0.01;
+        c.rotation.y += 0.015;
+      });
+      renderer.render(scene, camera);
+    }
+    animate();
 
-        <div class="content-wrapper">
-            <h1>2025年度研究テーマ</h1>
-            
-            <div id="main-typing-container">
-                <p id="main-typing"></p>
-            </div>
-            
-            <div style="margin-top: 10vh;">
-                <div class="theme-links">
-                    <a href="pdfjs/web/viewer.html?file=../../pdf/torii.pdf" class="button-link" data-aos="fade-up" data-aos-delay="0">3Dプリンターを用いた<br>フライタイイング技術の開発</a>
-                    <a href="pdfjs/web/viewer.html?file=../../pdf/nedu.pdf" class="button-link" data-aos="fade-up" data-aos-delay="100">視覚情報と時間提示の操作による<br>バーチャルリアリティ空間における<br>時空体験の創出</a>
-                    <a href="pdfjs/web/viewer.html?file=../../pdf/nishino.pdf" class="button-link" data-aos="fade-up" data-aos-delay="200">VR環境におけるUI/UXによるVR酔いの軽減</a>
-                    <a href="pdfjs/web/viewer.html?file=../../pdf/satou.pdf" class="button-link" data-aos="fade-up" data-aos-delay="300">ARを用いて身近な物の英単語を表示する<br>英語学習支援システムの開発</a>
-                    <a href="pdfjs/web/viewer.html?file=../../pdf/onigata.pdf" class="button-link" data-aos="fade-up" data-aos-delay="400">FPSにおける人間らしい振る舞いを行う<br>ゲームAIの開発</a>
-                    <a href="pdfjs/web/viewer.html?file=../../pdf/nogawa.pdf" class="button-link" data-aos="fade-up" data-aos-delay="500">複雑な表情を生成可能なAIの開発</a>
-                    <a href="pdfjs/web/viewer.html?file=../../pdf/naruse.pdf" class="button-link" data-aos="fade-up" data-aos-delay="600">生成AIを用いた<br>リアルな人物の創出とプロデュース</a>
-                    <a href="pdfjs/web/viewer.html?file=../../pdf/ikeuchi.pdf" class="button-link" data-aos="fade-up" data-aos-delay="700">ビデオ通話における<br>感情推定による不安感の軽減</a>
-                    <a href="pdfjs/web/viewer.html?file=../../pdf/kurosawa.pdf" class="button-link" data-aos="fade-up" data-aos-delay="800">ミーティングにおける<br>時間経過と感情変化の関係</a>
-                    <a href="pdfjs/web/viewer.html?file=../../pdf/miura.pdf" class="button-link" data-aos="fade-up" data-aos-delay="900">マーケットニーズに応える服飾デザインの模索</a>
-                    <a href="pdfjs/web/viewer.html?file=../../pdf/kuma.pdf" class="button-link" data-aos="fade-up" data-aos-delay="1000">エンタテイメント業界で求められる<br>リーダーシップとフォロワーシップの在り方</a>
-                    <a href="pdfjs/web/viewer.html?file=../../pdf/iwata.pdf" class="button-link" data-aos="fade-up" data-aos-delay="1200">観光閑散期に挑む<br>～江間いちごの夏季プロモーション実践報告～</a>
-                    <a href="pdfjs/web/viewer.html?file=../../pdf/asakawa.pdf" class="button-link" data-aos="fade-up" data-aos-delay="1300">横浜市における<br>公共交通空白地帯の予測モデルの構築</a>
-                    <a href="pdfjs/web/viewer.html?file=../../pdf/moriya.pdf" class="button-link" data-aos="fade-up" data-aos-delay="1400">映像制作における<br>一連の工程を通したスキル修得</a>
-                    <a href="pdfjs/web/viewer.html?file=../../pdf/motone.pdf" class="button-link" data-aos="fade-up" data-aos-delay="1500">プロの歌手になるための活動</a>
-                    <a href="pdfjs/web/viewer.html?file=../../pdf/oikawa.pdf" class="button-link" data-aos="fade-up" data-aos-delay="1600">果物アレルギーを抱える人のための<br>疑似味覚提示システムの開発</a>
-                    <a href="pdfjs/web/viewer.html?file=../../pdf/owari.pdf" class="button-link" data-aos="fade-up" data-aos-delay="1700">色弱者(色覚特性のある人)に向けた<br>色覚補助による鮮魚判別システムの開発</a>
-                    <a href="pdfjs/web/viewer.html?file=../../pdf/kobayashi.pdf" class="button-link" data-aos="fade-up" data-aos-delay="1800">写真を見た際の鑑賞者の<br>言語化できない感情の変化と<br>バイタルデータとの関係</a>
-                    <a href="pdfjs/web/viewer.html?file=../../pdf/sakuma.pdf" class="button-link" data-aos="fade-up" data-aos-delay="1900">ゲームプレイ情報に基づきレコメンドを行う<br>スマートゲーミングディスプレイの開発</a>
-                    <a href="pdfjs/web/viewer.html?file=../../pdf/toyama.pdf" class="button-link" data-aos="fade-up" data-aos-delay="2000">身体接触により人間のストレスを<br>軽減させる癒しロボットの開発</a>
-                    <a href="pdfjs/web/viewer.html?file=../../pdf/morita.pdf" class="button-link" data-aos="fade-up" data-aos-delay="2100">ブランドとブランドプレイリストの<br>感情的一致制に関する実証分析</a>
-                    <a href="pdfjs/web/viewer.html?file=../../pdf/aikawa.pdf" class="button-link" data-aos="fade-up" data-aos-delay="2200">テレイグジスタンスによる<br>非同期コミュニケーションの実現</a>
-                    <a href="pdfjs/web/viewer.html?file=../../pdf/yamaguchi.pdf" class="button-link" data-aos="fade-up" data-aos-delay="2300">気功の科学的追求</a>
-                    <a href="pdfjs/web/viewer.html?file=../../pdf/shimamura.pdf" class="button-link" data-aos="fade-up" data-aos-delay="2400">ブロックチェーン技術を用いた<br>地域医療連携のための<br>電子カルテ共有システムの開発と提案</a>
-                </div>
-            </div>
-        </div>
-        <script src="https://unpkg.com/ityped@1.0.0/dist/index.js"></script>
-        <script src="js/main-init.js"></script>
-        <script>
-            // 画面遷移トランジション機能
-            (function() {
-                const transition = document.getElementById('page-transition');
-                const progress = document.getElementById('transition-progress');
-                const links = document.querySelectorAll('.button-link');
+    // クリック検出
+    renderer.domElement.addEventListener('click', (event) => {
+      const rect = renderer.domElement.getBoundingClientRect();
+      mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+      mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+      raycaster.setFromCamera(mouse, camera);
+      const intersects = raycaster.intersectObjects(cubes);
+      if (intersects.length > 0) {
+        const cube = intersects[0].object;
+        gsap.to(cube.scale, { x: 2, y: 2, z: 0.3, duration: 1, ease: 'power2.inOut', onComplete: () => {
+          showPDF(cube.userData.pdf);
+        }});
+      }
+    });
 
-                function handleTransition(e) {
-                    e.preventDefault();
-                    const targetUrl = e.currentTarget.getAttribute('href');
+    async function showPDF(pdfUrl) {
+      modal.style.display = 'flex';
+      const loadingTask = pdfjsLib.getDocument(pdfUrl);
+      const pdf = await loadingTask.promise;
+      const page = await pdf.getPage(1);
+      const viewport = page.getViewport({ scale: 1.2 });
+      pdfCanvas.width = viewport.width;
+      pdfCanvas.height = viewport.height;
+      const ctx = pdfCanvas.getContext('2d');
+      await page.render({ canvasContext: ctx, viewport }).promise;
+    }
 
-                    // トランジション開始
-                    transition.classList.add('active');
-                    
-                    // プログレスバーアニメーション
-                    let progressValue = 0;
-                    const progressInterval = setInterval(() => {
-                        progressValue += 10;
-                        progress.style.width = progressValue + '%';
-                        
-                        if (progressValue >= 100) {
-                            clearInterval(progressInterval);
-                            // 遷移実行
-                            setTimeout(() => {
-                                window.location.href = targetUrl;
-                            }, 100);
-                        }
-                    }, 30);
-                }
+    closeBtn.addEventListener('click', () => {
+      modal.style.display = 'none';
+      cubes.forEach(cube => gsap.to(cube.scale, { x:1, y:1, z:1, duration:0.5 }));
+    });
 
-                // 各リンクにイベントリスナーを追加
-                links.forEach(link => {
-                    link.addEventListener('click', handleTransition);
-                });
-
-                // ページロード時のフェードイン処理
-                window.addEventListener('load', function() {
-                    // 既にロード済みの場合は何もしない
-                    if (sessionStorage.getItem('pageLoaded')) {
-                        return;
-                    }
-                    sessionStorage.setItem('pageLoaded', 'true');
-                });
-            })();
-        </script>
-    </body>
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
+</body>
 </html>
