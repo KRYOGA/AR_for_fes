@@ -7,11 +7,8 @@ body {
   height: 100vh;
   overflow-x: hidden;
 
-  /* 背景画像設定 */
-  background-image: url("mediabox.png");
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  /* 背景画像設定を削除し、黒い背景色に変更 */
+  background-color: #000;
 
 
   /* フォント設定 */
@@ -556,7 +553,7 @@ p{
 .stamp-item {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(180deg, #F9FAFB, #F3F4F6);
+  background: linear-gradient(180deg, #F9FAFB, #F3F4f6);
 }
 
 .stamp-item::after {
@@ -620,3 +617,30 @@ p{
   .stamp-hero-title { font-size: 1.6em; }
   .stamp-hero-sub { font-size: 0.9em; }
 }
+
+
+/* ======== CSSの末尾にここから追加 ======== */
+
+/* 回転アニメーションの定義 */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* main.html で追加する背景用DIVのスタイル */
+#animated-bg {
+  background-image: url("mediabox.png");
+  background-size: cover;
+  background-position: center;
+  
+  /* .bg-canvas の opacity: 0.5 を上書きして濃く表示 */
+  opacity: 1; 
+  
+  /* 60秒かけて1回転するアニメーションを適用 */
+  animation: spin 60s linear infinite;
+}
+/* ======== ここまで追加 ======== */
