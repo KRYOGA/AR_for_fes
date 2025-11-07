@@ -45,12 +45,12 @@
                     <span class="shape s4"></span>
                     <span class="shape s5"></span>
                 </div>
-                <p class="stamp-hero-sub">全てのスタンプを集めると特別なご褒美が…！</p>
+                <p class="stamp-hero-sub">全てのスタンプを集めると<br>特別なご褒美が…！</p>
             </div>
 
           
             <div class="action" style="margin-bottom: 1em;">
-                <a href="contents.html" class="button-link">ARの世界へ</a>
+                <a href="contents.html" class="button-link">カメラ起動！</a>
             </div>
             <div>
                 <div id="stamp-complete" class="stamp-complete">おめでとうございます！<br>全スタンプをコンプリートしました！</div>
@@ -67,7 +67,7 @@
                         <h3>コンプリート特典</h3>
                     </div>
                     <div class="reward-modal-body">
-                        <p>Kawanobe lab20周年記念の特典画像を受け取りますか？</p>
+                        <p>Kawanobe lab20周年記念の特典を受け取りますか？</p>
                         <div class="reward-modal-buttons">
                             <button id="reward-yes" class="reward-button reward-button-yes">はい</button>
                             <button id="reward-no" class="reward-button reward-button-no">いいえ</button>
@@ -79,12 +79,25 @@
             <div id="image-modal" class="reward-modal">
                 <div class="reward-modal-content image-modal-content">
                     <div class="reward-modal-header">
-                        <h3>特典画像</h3>
+                        <h3>スマホ用壁紙</h3>
                         <button id="close-image-modal" class="reward-close-button">&times;</button>
                     </div>
                     <div class="reward-modal-body image-modal-body">
-                        <img id="reward-image" src="kawanobe.jpeg" alt="特典画像" class="reward-image">
-                        <button id="download-image" class="reward-button reward-button-download">画像をダウンロード</button>
+                        <div class="reward-images-container">
+                            <div class="reward-image-item">
+                                <img id="reward-image-1" src="kawanobe1.png" alt="特典画像1" class="reward-image">
+                                <button class="reward-button reward-button-download download-single" data-image-id="reward-image-1" data-filename="kawanobe1.png">壁紙1をダウンロード</button>
+                            </div>
+                            <div class="reward-image-item">
+                                <img id="reward-image-2" src="kawanobe2.png" alt="特典画像2" class="reward-image">
+                                <button class="reward-button reward-button-download download-single" data-image-id="reward-image-2" data-filename="kawanobe2.png">壁紙2をダウンロード</button>
+                            </div>
+                            <div class="reward-image-item">
+                                <img id="reward-image-3" src="kawanobe3.png" alt="特典画像3" class="reward-image">
+                                <button class="reward-button reward-button-download download-single" data-image-id="reward-image-3" data-filename="kawanobe3.png">壁紙3をダウンロード</button>
+                            </div>
+                        </div>
+                        <button id="download-all-images" class="reward-button reward-button-download" style="margin-top: 20px; width: 100%;">すべての壁紙をダウンロード</button>
                     </div>
                 </div>
             </div>

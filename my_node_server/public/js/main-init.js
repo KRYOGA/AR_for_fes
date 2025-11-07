@@ -47,23 +47,38 @@
         }
     }
 
-    function downloadImage() {
-        var img = document.getElementById('reward-image');
+    function downloadImage(imageId, filename) {
+        var img = document.getElementById(imageId);
         if (!img) return;
         
         var link = document.createElement('a');
         link.href = img.src;
-        link.download = 'kawanobe.jpeg';
+        link.download = filename || 'kawanobe.png';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+    }
+
+    function downloadAllImages() {
+        var images = [
+            { id: 'reward-image-1', filename: 'kawanobe1.png' },
+            { id: 'reward-image-2', filename: 'kawanobe2.png' },
+            { id: 'reward-image-3', filename: 'kawanobe3.png' }
+        ];
+        
+        // 少し間隔を空けてダウンロード（ブラウザの制限を回避）
+        images.forEach(function(image, index) {
+            setTimeout(function() {
+                downloadImage(image.id, image.filename);
+            }, index * 300);
+        });
     }
 
     function initRewardModal() {
         var rewardYesBtn = document.getElementById('reward-yes');
         var rewardNoBtn = document.getElementById('reward-no');
         var closeImageBtn = document.getElementById('close-image-modal');
-        var downloadBtn = document.getElementById('download-image');
+        var downloadAllBtn = document.getElementById('download-all-images');
 
         if (rewardYesBtn) {
             rewardYesBtn.addEventListener('click', function() {
@@ -84,9 +99,20 @@
             });
         }
 
-        if (downloadBtn) {
-            downloadBtn.addEventListener('click', function() {
-                downloadImage();
+        // 個別ダウンロードボタン
+        var downloadSingleBtns = document.querySelectorAll('.download-single');
+        downloadSingleBtns.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var imageId = this.getAttribute('data-image-id');
+                var filename = this.getAttribute('data-filename');
+                downloadImage(imageId, filename);
+            });
+        });
+
+        // すべてダウンロードボタン
+        if (downloadAllBtn) {
+            downloadAllBtn.addEventListener('click', function() {
+                downloadAllImages();
             });
         }
 

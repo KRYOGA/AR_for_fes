@@ -423,11 +423,26 @@ p{
 }
 
 .image-modal-content {
-    max-width: 600px;
+    max-width: 900px;
 }
 
 .image-modal-body {
     padding: 20px;
+}
+
+/* 3つの画像を表示するコンテナ */
+.reward-images-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.reward-image-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
 }
 
 .reward-image {
@@ -435,7 +450,13 @@ p{
     height: auto;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    margin-bottom: 15px;
+    width: 100%;
+    object-fit: contain;
+}
+
+.download-single {
+    width: 100%;
+    margin-top: 0;
 }
 
 /* スマホ（600px以下）専用の最適化 */
@@ -475,6 +496,16 @@ p{
 
   .reward-image {
     max-width: 100%;
+  }
+
+  /* モバイルでは画像を縦並びに */
+  .reward-images-container {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .image-modal-content {
+    max-width: 95%;
   }
 }
 
