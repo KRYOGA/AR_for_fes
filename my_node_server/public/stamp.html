@@ -2,12 +2,34 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- スマホ対応 -->
-        <title>川野邊研究室 // 研究テーマ発表会</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>川野邊研究室 // 研究テーマ発表会</title>
         <link rel="stylesheet" href="style.css">
-    </head>
+        <style>
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1; /* コンテンツの背後に表示 */
+            background-color: #222; /* 背景色（暗め） */
+        }
+
+        /* 既存の背景キャンバスを非表示にする */
+        #bg-canvas {
+            display: none !important;
+        }
+
+        /* 既存のコンテンツラッパーが背景より手前に来るように */
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+        </style>
+        </head>
 
     <body>
+        <div id="particles-js"></div>
         <canvas id="bg-canvas" class="bg-canvas" aria-hidden="true"></canvas>
         <div class="content-wrapper">
             <div class="stamp-hero" aria-hidden="true">
@@ -30,7 +52,6 @@
             <div class="action" style="margin-bottom: 1em;">
                 <a href="contents.html" class="button-link">ARの世界へ</a>
             </div>
-            <!-- スタンプラリー表示 -->
             <div>
                 <div id="stamp-complete" class="stamp-complete">おめでとうございます！<br>全スタンプをコンプリートしました！</div>
                 <div id="stamp-progress" class="stamp-progress">読込中...</div>
@@ -40,7 +61,6 @@
                 <div id="stamp-grid" class="stamp-grid"></div>
             </div>
 
-            <!-- 画像受け取り確認モーダル -->
             <div id="reward-modal" class="reward-modal">
                 <div class="reward-modal-content">
                     <div class="reward-modal-header">
@@ -56,7 +76,6 @@
                 </div>
             </div>
 
-            <!-- 画像表示モーダル -->
             <div id="image-modal" class="reward-modal">
                 <div class="reward-modal-content image-modal-content">
                     <div class="reward-modal-header">
@@ -72,6 +91,33 @@
 
             <div id="confetti" class="confetti-container" aria-hidden="true"></div>
             <script src="js/main-init.js"></script>
-        </div>
+            
+            <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+            <script>
+            particlesJS("particles-js", {
+              "particles": {
+                "number": {"value": 80, "density": {"enable": true, "value_area": 800}},
+                "color": {"value": "#ffffff"},
+                "shape": {"type": "circle", "stroke": {"width": 0, "color": "#000000"}, "polygon": {"nb_sides": 5}},
+                "opacity": {"value": 0.5, "random": false, "anim": {"enable": false, "speed": 1, "opacity_min": 0.1, "sync": false}},
+                "size": {"value": 3, "random": true, "anim": {"enable": false, "speed": 40, "size_min": 0.1, "sync": false}},
+                "line_linked": {"enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.4, "width": 1},
+                "move": {"enable": true, "speed": 6, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false, "attract": {"enable": false, "rotateX": 600, "rotateY": 1200}}
+              },
+              "interactivity": {
+                "detect_on": "canvas",
+                "events": {"onhover": {"enable": true, "mode": "repulse"}, "onclick": {"enable": true, "mode": "push"}, "resize": true},
+                "modes": {
+                  "grab": {"distance": 400, "line_linked": {"opacity": 1}},
+                  "bubble": {"distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3},
+                  "repulse": {"distance": 200, "duration": 0.4},
+                  "push": {"particles_nb": 4},
+                  "remove": {"particles_nb": 2}
+                }
+              },
+              "retina_detect": true
+            });
+            </script>
+            </div>
     </body>
 </html>
