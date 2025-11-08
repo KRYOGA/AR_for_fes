@@ -1,0 +1,114 @@
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>特典</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                max-width: 800px;
+                margin: 50px auto;
+                padding: 20px;
+            }
+            .download-section {
+                margin: 30px 0;
+                padding: 20px;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                background-color: #f9f9f9;
+            }
+            .download-item {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin: 15px 0;
+                padding: 15px;
+                background-color: white;
+                border-radius: 5px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .download-item img {
+                max-width: 200px;
+                max-height: 150px;
+                border-radius: 5px;
+                margin-right: 20px;
+            }
+            .download-btn {
+                background-color: #4CAF50;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+                text-decoration: none;
+                display: inline-block;
+            }
+            .download-btn:hover {
+                background-color: #45a049;
+            }
+            .download-all-btn {
+                background-color: #2196F3;
+                color: white;
+                padding: 15px 30px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 18px;
+                margin-top: 20px;
+            }
+            .download-all-btn:hover {
+                background-color: #0b7dda;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>特典</h1>
+        
+        <div class="download-section">
+            <h2>kawanobe画像ダウンロード</h2>
+            
+            <div class="download-item">
+                <img src="kawanobe1.png" alt="kawanobe1">
+                <div>
+                    <h3>kawanobe1.png</h3>
+                    <a href="kawanobe1.png" download="kawanobe1.png" class="download-btn">ダウンロード</a>
+                </div>
+            </div>
+            
+            <div class="download-item">
+                <img src="kawanobe2.png" alt="kawanobe2">
+                <div>
+                    <h3>kawanobe2.png</h3>
+                    <a href="kawanobe2.png" download="kawanobe2.png" class="download-btn">ダウンロード</a>
+                </div>
+            </div>
+            
+            <div class="download-item">
+                <img src="kawanobe3.png" alt="kawanobe3">
+                <div>
+                    <h3>kawanobe3.png</h3>
+                    <a href="kawanobe3.png" download="kawanobe3.png" class="download-btn">ダウンロード</a>
+                </div>
+            </div>
+            
+            <button class="download-all-btn" onclick="downloadAll()">すべてダウンロード</button>
+        </div>
+        
+        <script>
+            function downloadAll() {
+                const images = ['kawanobe1.png', 'kawanobe2.png', 'kawanobe3.png'];
+                
+                images.forEach((image, index) => {
+                    setTimeout(() => {
+                        const link = document.createElement('a');
+                        link.href = image;
+                        link.download = image;
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                    }, index * 500); // 0.5秒間隔でダウンロード
+                });
+            }
+        </script>
+    </body>
+</html>
