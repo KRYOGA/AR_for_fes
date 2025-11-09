@@ -26,11 +26,20 @@ body::before {
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
+<<<<<<< Updated upstream
   filter: blur(4px);
   z-index: -1;
   /* ブラーによる端の白い部分を防ぐため、少し拡大 */
   transform: scale(1.05);
   will-change: transform;
+=======
+  backdrop-filter: blur(4px);
+  
+
+
+  /* フォント設定 */
+  font-family: "Consolas", "Courier New", monospace;
+>>>>>>> Stashed changes
 }
 
 /* 動的背景用 canvas を最背面に固定 */
